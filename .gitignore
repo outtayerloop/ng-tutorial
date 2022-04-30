@@ -1,0 +1,9 @@
+# Front
+node_modules
+.angular
+dist
+
+# Back
+.vs
+bin
+obj
