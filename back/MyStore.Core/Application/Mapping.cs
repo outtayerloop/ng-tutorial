@@ -20,8 +20,7 @@ namespace MyStore.Core.Application
             {
                 cfg.CreateMap<Product, ProductDto>()
                     .ConstructUsing(product =>
-                        new ProductDto(product.Id, product.Name, product.Price, product.Description))
-                    .ReverseMap();
+                        new ProductDto(product.Id, product.Name, product.Price, product.Description));
             });
             // only during development, validate your mappings; remove it before release
             configuration.AssertConfigurationIsValid();

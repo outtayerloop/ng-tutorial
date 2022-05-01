@@ -1,8 +1,11 @@
+using Microsoft.EntityFrameworkCore;
 using MyStore.Core.Application;
+using MyStore.Core.Database;
 using MyStore.Core.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 string corsPolicy = builder.Configuration["CorsSettings:CorsPolicy"];
+string connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING");
 
 // Add services to the container.
 builder.Services.AddCors(options =>
@@ -17,8 +20,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IStoreApplication, StoreApplication>();
-builder.Services.AddSingleton(typeof(IStoreRepository<>), typeof(StoreRepository<>));
+builder.Services.AddScoped(typeof(IStoreRepository<>), typeof(StoreRepository<>));
+builder.Services.AddScoped<IStoreApplication, StoreApplication>();
+builder.Services.AddDbContext<MyStoreDbContext>(options => options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 

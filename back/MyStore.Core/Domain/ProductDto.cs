@@ -15,6 +15,6 @@ namespace MyStore.Core.Domain
 
         public decimal Price { get; }
 
-        public string Description { get; }
+        public string? Description { get; }
     }
 }
