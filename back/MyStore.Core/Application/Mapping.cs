@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using MyStore.Core.Domain;
+using MyStore.Core.Domain.Model;
+using MyStore.Core.Domain.Dto;
 
 namespace MyStore.Core.Application
 {
@@ -21,6 +22,10 @@ namespace MyStore.Core.Application
                 cfg.CreateMap<Product, ProductDto>()
                     .ConstructUsing(product =>
                         new ProductDto(product.Id, product.Name, product.Price, product.Description));
+
+                cfg.CreateMap<Shipping, ShippingDto>()
+                    .ConstructUsing(shipping =>
+                        new ShippingDto(shipping.Id, shipping.Package, shipping.Price));
             });
             // only during development, validate your mappings; remove it before release
             configuration.AssertConfigurationIsValid();
