@@ -1,9 +1,9 @@
 name: Unit tests
 
 on:
-  push:
+  pull_request:
     branches:
-      - 'feature/**'
+      - develop
 
 env:
   MY_STORE_DB_CONNECTION_STRING: '${{ secrets.MY_STORE_DB_CONNECTION_STRING }}'
@@ -33,11 +33,6 @@ jobs:
 #      - name: Test
 #        run: dotnet test ./back --no-restore --verbosity normal
       - name: Merge current branch in develop
-        run: |
-          git config --global user.email "${{ secrets.ACCOUNT_MAIL }}" && \
-          git config --global user.name "${{ secrets.ACCOUNT_USERNAME }}" && \
-          git fetch && \
-          git pull && \
-          git checkout develop && \
-          git merge ${{ steps.extract_branch.outputs.branch }} --allow-unrelated-histories && \
-          git push -u origin develop
+        uses: "pascalgn/automerge-action@v0.15.2"
+        env:
+          GITHUB_TOKEN: "${{ secrets.TOKEN }}"
