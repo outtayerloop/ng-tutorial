@@ -30,7 +30,8 @@ jobs:
         run: dotnet test ./back --no-restore --verbosity normal
       - name: Merge current branch in develop
         run: |
-          echo ${GITHUB_REF} && \
+          git config --global user.email "${ACCOUNT_MAIL}" && \
+          git config --global user.name "${ACCOUNT_USERNAME} && \
           git fetch && \
           git checkout develop && \
           git merge ${GITHUB_REF} --allow-unrelated-histories && \
