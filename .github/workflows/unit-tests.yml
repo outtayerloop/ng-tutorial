@@ -34,8 +34,6 @@ jobs:
           label_name: 'merged in develop'
           target_branch: 'develop'
           github_token: ${{ secrets.TOKEN }}
-        
-      - name: Push develop to remote
         run: |
           git config --global user.email "${{ secrets.ACCOUNT_MAIL }}" && \
           git config --global user.name "${{ secrets.ACCOUNT_USERNAME }}" && \
