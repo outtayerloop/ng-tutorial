@@ -32,3 +32,11 @@ jobs:
         run: dotnet build ./back --configuration Release --no-restore
       - name: Test
         run: dotnet test ./back --no-restore --verbosity normal
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - id: automerge
+        name: Merge in develop
+        uses: "pascalgn/automerge-action@v0.15.2"
+        env:
+          GITHUB_TOKEN: "${{ secrets.TOKEN }}"
