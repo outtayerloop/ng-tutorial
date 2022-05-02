@@ -29,8 +29,14 @@ jobs:
 #      - name: Test
 #        run: dotnet test ./back --no-restore --verbosity normal
       - name: Merge current branch in develop
-        uses: devmasx/merge-branch@master
-        with:
-          label_name: 'merged in develop'
-          target_branch: 'origin/develop'
-          github_token: ${{ secrets.TOKEN }}
+        run: |
+          git config --global user.email "${ACCOUNT_MAIL}"
+          git config --global user.name "${ACCOUNT_USERNAME}"
+          git status
+          git pull
+          git checkout develop
+          git status
+          git checkout "$GITHUB_HEAD_REF"
+          git merge develop --no-edit
+          git push
+          git status
