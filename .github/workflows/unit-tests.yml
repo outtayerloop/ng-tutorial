@@ -36,7 +36,6 @@ jobs:
           git pull
           git checkout develop
           git status
-          git checkout "$GITHUB_HEAD_REF"
-          git merge develop --no-edit
+          git merge "$GITHUB_HEAD_REF" --no-edit
           git push
           git status
