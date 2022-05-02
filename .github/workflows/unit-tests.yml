@@ -29,7 +29,7 @@ jobs:
 #      - name: Test
 #        run: dotnet test ./back --no-restore --verbosity normal
       - name: Fetch branches
-        run: git fetch && echo ${GITHUB_REF#refs/heads/}
+        run: git fetch && git status && echo ${GITHUB_REF#refs/heads/}
       - name: Merge current branch in develop
         uses: devmasx/merge-branch@master
         with:
