@@ -18,6 +18,10 @@ jobs:
         
     steps:
       - uses: actions/checkout@v3
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v2
         with:
@@ -32,10 +36,7 @@ jobs:
         run: |
           git config --global user.email "${ACCOUNT_MAIL}"
           git config --global user.name "${ACCOUNT_USERNAME}"
-          git status
-          git pull
           git checkout develop
-          git status
-          git merge "$GITHUB_HEAD_REF" --no-edit
-          git push
-          git status
+          git pull
+          git merge ${{ steps.extract_branch.outputs.branch }}
+          git push -u origin develop
