@@ -28,7 +28,7 @@ jobs:
         run: dotnet build ./back --configuration Release --no-restore
       - name: Test
         run: dotnet test ./back --no-restore --verbosity normal
-      - name: Merge ${GITHUB_REF#refs/heads/} in develop
+      - name: Merge current branch in develop
         run: |
           git checkout develop && \
           git merge ${GITHUB_REF#refs/heads/}

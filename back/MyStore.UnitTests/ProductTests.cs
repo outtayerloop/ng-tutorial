@@ -48,7 +48,7 @@ namespace MyStore.UnitTests
             {
                 new Product { Name = "product1", Description = "product1Description", Price = 100 },
                 new Product { Name = "product2", Description = "product2Description", Price = 200 },
-                new Product { Name = "product3", Description = "product3Description", Price = 300 },
+                new Product { Name = "product3", Description = "product3Description", Price = 300 }
             };
             await _context.AddRangeAsync(expectedProducts);
             await _context.SaveChangesAsync();
@@ -116,7 +116,7 @@ namespace MyStore.UnitTests
             Assert.False(areEqual);
         }
 
-        [Fact, TestOrder(4)]
+        [Fact, TestOrder(9)]
         public void WhenSecondProductIsNull_DoNotEqualEachOther()
         {
             var stubProduct1 = GetProduct();
