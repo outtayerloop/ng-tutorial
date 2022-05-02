@@ -31,7 +31,6 @@ jobs:
       - name: Merge current branch in develop
         uses: devmasx/merge-branch@master
         with:
-          type: now
-          from_branch: ${{ GITHUB_REF#refs/heads/ }}
-          target_branch: develop
+          label_name: 'merged in develop'
+          target_branch: 'develop'
           github_token: ${{ secrets.TOKEN }}
