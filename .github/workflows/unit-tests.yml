@@ -29,10 +29,9 @@ jobs:
 #      - name: Test
 #        run: dotnet test ./back --no-restore --verbosity normal
       - name: Merge current branch in develop
-        run: |
-          git config --global user.email "${{ secrets.ACCOUNT_MAIL }}" && \
-          git config --global user.name "${{ secrets.ACCOUNT_USERNAME }}" && \
-          git fetch && \
-          git checkout develop && \
-          git merge ${GITHUB_REF} --allow-unrelated-histories && \
-          git push -u origin develop
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: ${GITHUB_REF}
+          target_branch: develop
+          github_token: ${{ secrets.TOKEN }}
