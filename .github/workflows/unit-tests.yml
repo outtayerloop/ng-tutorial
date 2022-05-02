@@ -1,0 +1,34 @@
+name: Unit tests
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+env:
+  MY_STORE_DB_CONNECTION_STRING: '${{ secrets.MY_STORE_DB_CONNECTION_STRING }}'
+  MY_STORE_TEST_CONNECTION_STRING: '${{ secrets.MY_STORE_TEST_CONNECTION_STRING }}'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['6.0']
+        
+    steps:
+      - uses: actions/checkout@v3
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore ./back
+      - name: Build
+        run: dotnet build ./back --configuration Release --no-restore
+      - name: Test
+        run: dotnet test ./back --no-restore --verbosity normal
