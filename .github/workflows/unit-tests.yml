@@ -29,5 +29,6 @@ jobs:
       - name: Test
         run: dotnet test --no-restore --verbosity normal
       - name: Merge ${GITHUB_REF#refs/heads/} in develop
-        run: git checkout develop
-        run: git merge ${GITHUB_REF#refs/heads/}
+        run: |
+          git checkout develop && \
+          git merge ${GITHUB_REF#refs/heads/}
