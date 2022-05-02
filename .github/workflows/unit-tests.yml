@@ -22,12 +22,14 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Install dependencies
-        run: dotnet restore ./back
-      - name: Build
-        run: dotnet build ./back --configuration Release --no-restore
+#      - name: Install dependencies
+#        run: dotnet restore ./back
+#      - name: Build
+#        run: dotnet build ./back --configuration Release --no-restore
 #      - name: Test
 #        run: dotnet test ./back --no-restore --verbosity normal
+      - name: Fetch branches
+        run: git fetch && echo ${GITHUB_REF#refs/heads/}
       - name: Merge current branch in develop
         uses: devmasx/merge-branch@master
         with:
