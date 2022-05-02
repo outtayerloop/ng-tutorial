@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Domain;
+using MyStore.Core.Domain.Model;
 
 namespace MyStore.Core.Database.Configuration
 {

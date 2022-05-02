@@ -6,16 +6,16 @@ namespace MyStore.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductsController : Controller
+    public class ShippingsController : Controller
     {
         private readonly IStoreApplication _storeApplication;
 
-        public ProductsController(IStoreApplication storeApplication)
+        public ShippingsController(IStoreApplication storeApplication)
             => _storeApplication = storeApplication;
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<List<ProductDto>> GetAllProducts()
-            => _storeApplication.GetAllProducts();
+        public ActionResult<List<ShippingDto>> GetAllShippings()
+            => _storeApplication.GetAllShippings();
     }
 }
