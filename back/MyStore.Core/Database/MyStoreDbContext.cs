@@ -15,5 +15,11 @@ namespace MyStore.Core.Database
             var productConfiguration = new ProductConfiguration(modelBuilder);
             productConfiguration.Configure();
         }
+
+        public int ClearAll()
+        {
+            Products.RemoveRange(Products);
+            return SaveChanges();
+        }
     }
 }

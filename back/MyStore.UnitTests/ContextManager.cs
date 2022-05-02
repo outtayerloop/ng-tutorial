@@ -6,6 +6,8 @@ namespace MyStore.UnitTests
 {
     public static class ContextManager
     {
+        public static string ConnectionString { get; } = GetConnectionString();
+
         private static MyStoreDbContext _context;
 
         public static MyStoreDbContext GetContext()
@@ -17,9 +19,11 @@ namespace MyStore.UnitTests
 
         private static MyStoreDbContext CreateContext()
         {
-            string connectionString = Environment.GetEnvironmentVariable("MY_STORE_TEST_CONNECTION_STRING");
-            var options = new DbContextOptionsBuilder<MyStoreDbContext>().UseNpgsql(connectionString).Options;
+            var options = new DbContextOptionsBuilder<MyStoreDbContext>().UseNpgsql(ConnectionString).Options;
             return new MyStoreDbContext(options);
         }
+
+        private static string GetConnectionString()
+            => Environment.GetEnvironmentVariable("MY_STORE_TEST_CONNECTION_STRING");
     }
 }

@@ -5,33 +5,22 @@ using MyStore.Core.Repository;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xunit.Microsoft.DependencyInjection;
+using MyStore.Core.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyStore.UnitTests
 {
     public class UnitTestsFixture : TestBedFixture
     {
-        private static readonly object _lock = new();
-
-        private static bool _databaseInitialized;
-
         public UnitTestsFixture()
-        {
-            lock (_lock)
-            {
-                if (!_databaseInitialized)
-                {
-                    using (var context = ContextManager.GetContext())
-                    {
-                        context.Database.EnsureDeleted();
-                        context.Database.EnsureCreated();
-                    }
-                    _databaseInitialized = true;
-                }
-            }
-        }
+            => ContextManager.GetContext().ClearAll();
 
         protected override void AddServices(IServiceCollection services, IConfiguration? configuration)
-            => services.AddSingleton(typeof(IStoreRepository<>), typeof(StoreRepository<>));
+        {
+            services.AddSingleton(typeof(IStoreRepository<>), typeof(StoreRepository<>));
+            string connectionString = ContextManager.ConnectionString;
+            services.AddDbContext<MyStoreDbContext>(options => options.UseNpgsql(connectionString));
+        }
 
         protected override ValueTask DisposeAsyncCore()
             => new();
@@ -39,6 +28,12 @@ namespace MyStore.UnitTests
         protected override IEnumerable<TestAppSettings> GetTestAppSettings()
         {
             yield return new() { Filename = null, IsOptional = true };
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            ContextManager.GetContext().ClearAll();
         }
     }
 }
