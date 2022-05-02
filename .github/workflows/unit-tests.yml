@@ -32,11 +32,5 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           label_name: 'merged in develop'
-          target_branch: 'develop'
+          target_branch: 'origin/develop'
           github_token: ${{ secrets.TOKEN }}
-        run: |
-          git config --global user.email "${{ secrets.ACCOUNT_MAIL }}" && \
-          git config --global user.name "${{ secrets.ACCOUNT_USERNAME }}" && \
-          git fetch && \
-          git checkout develop && \
-          git push -u origin develop
