@@ -36,7 +36,8 @@ jobs:
         run: |
           git config --global user.email "${ACCOUNT_MAIL}"
           git config --global user.name "${ACCOUNT_USERNAME}"
-          git checkout develop
+          git fetch
           git pull
+          git checkout develop
           git merge ${{ steps.extract_branch.outputs.branch }}
           git push -u origin develop
