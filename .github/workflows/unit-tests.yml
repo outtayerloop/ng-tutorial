@@ -23,11 +23,11 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore ./back
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build ./back --configuration Release --no-restore
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test ./back --no-restore --verbosity normal
       - name: Merge ${GITHUB_REF#refs/heads/} in develop
         run: |
           git checkout develop && \
