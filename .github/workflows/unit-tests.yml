@@ -39,5 +39,5 @@ jobs:
           git fetch
           git pull
           git checkout develop
-          git merge ${{ steps.extract_branch.outputs.branch }}
+          git merge ${{ steps.extract_branch.outputs.branch }} --allow-unrelated-histories
           git push -u origin develop
