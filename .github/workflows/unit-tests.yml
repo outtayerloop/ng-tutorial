@@ -30,6 +30,7 @@ jobs:
         run: dotnet test ./back --no-restore --verbosity normal
       - name: Merge current branch in develop
         run: |
+          echo ${GITHUB_REF} && \
           git fetch && \
           git checkout develop && \
           git merge ${GITHUB_REF} && \
