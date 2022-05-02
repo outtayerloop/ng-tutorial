@@ -22,15 +22,22 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-#      - name: Install dependencies
-#        run: dotnet restore ./back
-#      - name: Build
-#        run: dotnet build ./back --configuration Release --no-restore
-#      - name: Test
-#        run: dotnet test ./back --no-restore --verbosity normal
+      - name: Install dependencies
+        run: dotnet restore ./back
+      - name: Build
+        run: dotnet build ./back --configuration Release --no-restore
+      - name: Test
+        run: dotnet test ./back --no-restore --verbosity normal
       - name: Merge current branch in develop
         uses: devmasx/merge-branch@master
         with:
           label_name: 'merged in develop'
           target_branch: 'develop'
           github_token: ${{ secrets.TOKEN }}
+      - name: Push develop to remote
+        run: |
+          run: |
+          git config --global user.email "${{ secrets.ACCOUNT_MAIL }}" && \
+          git config --global user.name "${{ secrets.ACCOUNT_USERNAME }}" && \
+          git checkout develop && \
+          git push -u origin develop
