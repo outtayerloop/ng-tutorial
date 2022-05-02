@@ -34,10 +34,10 @@ jobs:
 #        run: dotnet test ./back --no-restore --verbosity normal
       - name: Merge current branch in develop
         run: |
-          git config --global user.email "${ACCOUNT_MAIL}"
-          git config --global user.name "${ACCOUNT_USERNAME}"
-          git fetch
-          git pull
-          git checkout develop
-          git merge ${{ steps.extract_branch.outputs.branch }} --allow-unrelated-histories
+          git config --global user.email "${ACCOUNT_MAIL}" && \
+          git config --global user.name "${ACCOUNT_USERNAME}" && \
+          git fetch && \
+          git pull && \
+          git checkout develop && \
+          git merge ${{ steps.extract_branch.outputs.branch }} --allow-unrelated-histories && \
           git push -u origin develop
