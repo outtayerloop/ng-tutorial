@@ -28,11 +28,7 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
         run: dotnet restore ./back
-#      - name: Build
-#        run: dotnet build ./back --configuration Release --no-restore
-#      - name: Test
-#        run: dotnet test ./back --no-restore --verbosity normal
-      - name: Merge current branch in develop
-        uses: "pascalgn/automerge-action@v0.15.2"
-        env:
-          GITHUB_TOKEN: "${{ secrets.TOKEN }}"
+      - name: Build
+        run: dotnet build ./back --configuration Release --no-restore
+      - name: Test
+        run: dotnet test ./back --no-restore --verbosity normal
