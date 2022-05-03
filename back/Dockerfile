@@ -1,11 +1,15 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS build
+
 WORKDIR /app
-COPY ./back/* ./
-RUN set -o allexport; source .env; set +o allexport
+
+EXPOSE 5000
+
+COPY * ./
+
 RUN dotnet restore
+
 RUN dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-jammy
-WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=build /app/out .
+
 ENTRYPOINT ["dotnet", "MyStore.dll"]
