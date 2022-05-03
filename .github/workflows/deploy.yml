@@ -1,0 +1,46 @@
+name: Deploy to Azure
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Push image to DockerHub 
+        uses: azure/docker-login@v1
+        with:
+          login-server: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PWD }}
+        run: |
+            docker-compose up --remove-orphans --build --no-start
+            docker tag my-store-back ${{ secrets.DOCKER_USERNAME }}/my-store-back
+            docker push ${{ secrets.DOCKER_USERNAME }}/my-store-back:latest
+
+  deploy:
+     runs-on: ubuntu-latest
+
+     steps:
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Container Instances
+        uses: 'azure/aci-deploy@v1'
+        with:
+          resource-group: MyStore
+          image: my-store-back:latest
+          cpu: 1
+          registry-username: ${{ secrets.DOCKER_USERNAME }}
+          registry-password: ${{ secrets.DOCKER_PWD }}
+          name: my-store-back
+          location: 'east us'
