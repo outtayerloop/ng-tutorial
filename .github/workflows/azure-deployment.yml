@@ -41,6 +41,7 @@ jobs:
         with:
           resource-group: MyStore
           image: my-store-back:latest
+          dns-name-label: my-store-back
           cpu: 1
           registry-username: ${{ secrets.DOCKER_USERNAME }}
           registry-password: ${{ secrets.DOCKER_PWD }}
