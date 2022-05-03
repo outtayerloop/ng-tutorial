@@ -17,14 +17,19 @@ jobs:
         dotnet-version: ['6.0']
         
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
+
       - name: Install dependencies
         run: dotnet restore ./back
+
       - name: Build
         run: dotnet build ./back --configuration Release --no-restore
+
       - name: Test
         run: dotnet test ./back --no-restore --verbosity normal
