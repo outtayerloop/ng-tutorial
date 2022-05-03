@@ -1,18 +1,22 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS build
-
-WORKDIR /app
+FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS base
 
 EXPOSE 5000
 
-COPY MyStore.Web/* ./
-COPY MyStore.Core/* ./
+FROM base AS build
+WORKDIR /src
+COPY ./*.sln ./
+COPY MyStore.Web/*.csproj /src/MyStore.Web/
+COPY MyStore.Core/*.csproj /src/MyStore.Core/
 
-RUN dotnet restore ./MyStore.Web
-RUN dotnet restore ./MyStore.Core
+RUN dotnet restore
 
-RUN dotnet publish -c Release -o out ./MyStore.Web
-RUN dotnet publish -c Release -o out ./MyStore.Core
+FROM build AS publish
+WORKDIR /src/MyStore.Web
+RUN dotnet publish -c Release -o /app
+WORKDIR /src/MyStore.Core
+RUN dotnet publish -c Release -o /app
 
-COPY --from=build /app/out .
-
+FROM publish AS final
+WORKDIR /app
+COPY --from=final /app .
 ENTRYPOINT ["dotnet", "MyStore.dll"]
