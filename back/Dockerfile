@@ -20,4 +20,4 @@ RUN dotnet publish -c Release -o /app
 FROM publish AS final
 WORKDIR /app
 COPY --from=final /app .
-ENTRYPOINT ["dotnet", "MyStore.dll"]
+ENTRYPOINT ["dotnet", "MyStore.Web.dll"]
