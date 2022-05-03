@@ -8,7 +8,8 @@ COPY ./*.sln ./
 COPY MyStore.Web/*.csproj /src/MyStore.Web/
 COPY MyStore.Core/*.csproj /src/MyStore.Core/
 
-RUN dotnet restore
+RUN dotnet restore /src/MyStore.Web/MyStore.Web.csproj
+RUN dotnet restore /src/MyStore.Core/MyStore.Core.csproj
 
 FROM build AS publish
 WORKDIR /src/MyStore.Web
