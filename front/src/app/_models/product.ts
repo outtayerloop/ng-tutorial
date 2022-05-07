@@ -1,8 +1,9 @@
-export const environment = {
-  production: true,
-  apiUrl: 'http://localhost:5000'
-};
-
+export interface Product {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+}
 
 /*
 Copyright Google LLC. All Rights Reserved.

@@ -1,0 +1,33 @@
+name: Unit tests
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+env:
+  MY_STORE_TEST_CONNECTION_STRING: '${{ secrets.MY_STORE_TEST_CONNECTION_STRING }}'
+  DOTNET_VERSION: '6.0'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: test
+        
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET Core SDK ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install dependencies
+        run: dotnet restore ./back
+
+      - name: Build
+        run: dotnet build ./back --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test ./back --no-restore --verbosity normal
