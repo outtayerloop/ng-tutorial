@@ -12,6 +12,7 @@ jobs:
 
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: production
     env:
       DOTNET_VERSION: '6.0'
 
