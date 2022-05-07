@@ -3,11 +3,6 @@ using MyStore.Core.Application;
 using MyStore.Core.Database;
 using MyStore.Core.Repository;
 
-static void Main(string[] args)
-{
-    
-}
-
 var builder = WebApplication.CreateBuilder(args);
 string corsPolicy = builder.Configuration["CorsSettings:CorsPolicy"];
 string connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING");
