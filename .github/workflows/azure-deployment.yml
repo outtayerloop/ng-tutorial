@@ -10,7 +10,7 @@ on:
 
 jobs:
 
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     env:
       DOTNET_VERSION: '6.0'
@@ -33,15 +33,10 @@ jobs:
       - name: Publish
         run: dotnet publish ./back/MyStore.Web -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
 
-  deploy:
-     runs-on: ubuntu-latest
-     needs: build
-
-     steps:
-
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         with: 
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
           package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+      
