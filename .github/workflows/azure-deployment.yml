@@ -1,4 +1,7 @@
 name: Azure deployment
+env:
+  AZURE_WEBAPP_NAME: 'MyStore'
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 on:
   pull_request:
@@ -11,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOTNET_VERSION: '6.0'
-      AZURE_WEBAPP_PACKAGE_PATH: '.'
-      AZURE_WEBAPP_NAME: 'MyStore'
 
     steps:
       - name: Checkout repository
@@ -58,4 +59,4 @@ jobs:
         with:
           app-name: '{{ env.AZURE_WEBAPP_NAME }}'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: .
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
