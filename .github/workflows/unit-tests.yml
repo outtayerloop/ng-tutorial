@@ -8,22 +8,20 @@ on:
 env:
   MY_STORE_DB_CONNECTION_STRING: '${{ secrets.MY_STORE_DB_CONNECTION_STRING }}'
   MY_STORE_TEST_CONNECTION_STRING: '${{ secrets.MY_STORE_TEST_CONNECTION_STRING }}'
+  DOTNET_VERSION: '6.0'
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: ['6.0']
         
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      - name: Setup .NET Core SDK ${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Install dependencies
         run: dotnet restore ./back
