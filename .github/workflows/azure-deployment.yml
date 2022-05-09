@@ -76,7 +76,9 @@ jobs:
           sed -i 's|http[:][/][/]localhost[:]5000|${{ env.API_URL }}|g' ./front/src/environments/environment.prod.ts
 
       - name: Build
-        run: ng build ./front --output-path '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_FOLDER }}'
+        run: |
+          cd front
+          ng build --output-path '../${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_FOLDER }}'
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
