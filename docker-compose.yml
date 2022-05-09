@@ -1,7 +1,0 @@
-services:
-    back:
-        container_name: my-store-back
-        build: ./back
-        image: my-store-back:latest
-        ports:
-            - "5000:5000"
