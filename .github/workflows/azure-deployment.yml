@@ -28,10 +28,6 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Set Cors client host URL
-        run: |
-          sed -i 's/http[:][/][/]localhost[:]5000/${{ env.API_URL }}/g' ./front/src/environments/environment.ts
-
       - name: Install dependencies
         run: dotnet restore ./back
 
@@ -75,8 +71,8 @@ jobs:
 
       - name: Set API URL
         run: |
-          sed -i 's/http[:][/][/]localhost[:]5000/${{ env.API_URL }}/g' ./front/src/environments/environment.ts
-          sed -i 's/http[:][/][/]localhost[:]5000/${{ env.API_URL }}/g' ./front/src/environments/environment.prod.ts
+          sed -i 's|http[:][/][/]localhost[:]5000|${{ env.API_URL }}|g' ./front/src/environments/environment.ts
+          sed -i 's|http[:][/][/]localhost[:]5000|${{ env.API_URL }}|g' ./front/src/environments/environment.prod.ts
 
       - name: Build
         run: ng build ./front --output-path '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_FOLDER }}'
