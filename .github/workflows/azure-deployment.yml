@@ -68,6 +68,7 @@ jobs:
         run: |
           cd ./front
           npm install
+          npm install -g @angular/cli
 
       - name: Set API URL
         run: |
