@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyStore.Core.Application;
 using MyStore.Core.Database;
@@ -5,7 +6,6 @@ using MyStore.Core.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 string corsPolicy = builder.Configuration["CorsSettings:CorsPolicy"];
-string connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING");
 
 // Add services to the container.
 builder.Services.AddCors(options =>
@@ -22,7 +22,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IStoreRepository<>), typeof(StoreRepository<>));
 builder.Services.AddScoped<IStoreApplication, StoreApplication>();
+
+// Configure the database context
+string connectionString;
+if (builder.Environment.IsDevelopment())
+    connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING");
+else
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+        new DefaultAzureCredential());
+    connectionString = builder.Configuration["MY-STORE-DB-CONNECTION-STRING"];
+}
 builder.Services.AddDbContext<MyStoreDbContext>(options => options.UseNpgsql(connectionString));
+
 
 var app = builder.Build();
 
@@ -40,5 +53,20 @@ app.UseCors(corsPolicy);
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/", (IConfiguration config) =>
+    string.Join(
+        Environment.NewLine,
+        "SecretName (Name in Key Vault: 'SecretName')",
+        @"Obtained from configuration with config[""SecretName""]",
+        $"Value: {config["SecretName"]}",
+        "",
+        "Section:SecretName (Name in Key Vault: 'Section--SecretName')",
+        @"Obtained from configuration with config[""Section:SecretName""]",
+        $"Value: {config["Section:SecretName"]}",
+        "",
+        "Section:SecretName (Name in Key Vault: 'Section--SecretName')",
+        @"Obtained from configuration with config.GetSection(""Section"")[""SecretName""]",
+        $"Value: {config.GetSection("Section")["SecretName"]}"));
 
 app.Run();
