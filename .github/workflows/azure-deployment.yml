@@ -28,6 +28,11 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Remove AutoMapper's valid configuration assertion
+        run: |
+          sed -i 's|[/][/]TOREMOVE||g' ./back/MyStore.Core/Application/Mapping.cs
+          sed -i 's|configuration[.]AssertConfigurationIsValid();||g' ./back/MyStore.Core/Application/Mapping.cs
+
       - name: Install dependencies
         run: dotnet restore ./back
 
