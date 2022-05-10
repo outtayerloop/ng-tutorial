@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Domain.Model;
+using MyStore.Core.Data.Entity.Model;
 
-namespace MyStore.Core.Database.Configuration
+namespace MyStore.Core.Data.Context.Configuration
 {
     public class ShippingConfiguration : BaseConfiguration
     {

@@ -1,4 +1,4 @@
-﻿namespace MyStore.Core.Domain
+﻿namespace MyStore.Core.Data.Entity
 {
     public enum ShippingPackage
     {

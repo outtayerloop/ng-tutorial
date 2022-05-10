@@ -1,4 +1,4 @@
-using MyStore.Core.Domain.Model;
+using MyStore.Core.Data.Entity.Model;
 using MyStore.Core.Repository;
 using System.Collections.Generic;
 using System.Linq;

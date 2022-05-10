@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MyStore.Core.Domain.Model;
-using MyStore.Core.Domain.Dto;
+using MyStore.Core.Data.Entity.Model;
+using MyStore.Core.Data.Entity.Dto;
 using MyStore.Core.Repository;
 
 namespace MyStore.Core.Application

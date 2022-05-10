@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MyStore.Core.Domain.Model;
-using MyStore.Core.Domain.Dto;
+using MyStore.Core.Data.Entity.Model;
+using MyStore.Core.Data.Entity.Dto;
 
 namespace MyStore.Core.Application
 {
@@ -27,8 +27,10 @@ namespace MyStore.Core.Application
                     .ConstructUsing(shipping =>
                         new ShippingDto(shipping.Id, shipping.Package, shipping.Price));
             });
-            // only during development, validate your mappings; remove it before release
-            configuration.AssertConfigurationIsValid();
+            #if DEBUG
+                // only during development, validate your mappings; remove it before release
+                configuration.AssertConfigurationIsValid();
+            #endif
             return configuration.CreateMapper();
         }
     }

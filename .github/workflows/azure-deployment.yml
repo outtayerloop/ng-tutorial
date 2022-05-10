@@ -1,20 +1,23 @@
 name: Azure deployment
-env:
-  AZURE_WEBAPP_NAME: 'MyStore'
-  AZURE_WEBAPP_PACKAGE_PATH: '.'
+  
 
 on:
-  pull_request:
+  push:
     branches:
       - master
 
 jobs:
 
-  build-and-deploy:
+  deploy-api:
     runs-on: ubuntu-latest
     environment: production
     env:
       DOTNET_VERSION: '6.0'
+      AZURE_WEBAPP_NAME: 'MyStore-Api'
+      AZURE_WEBAPP_PACKAGE_PATH: '.'
+      AZURE_WEBAPP_FOLDER: 'my-store-api'
+    outputs:
+      api-url: ${{ steps.deploy.outputs.webapp-url }}
 
     steps:
       - name: Checkout repository
@@ -32,12 +35,54 @@ jobs:
         run: dotnet build ./back --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish ./back/MyStore.Web -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+        run: dotnet publish ./back/MyStore.Web -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_FOLDER }}'
+
+      - name: 'Deploy to Azure Web App'
+        id: deploy
+        uses: azure/webapps-deploy@v2
+        with: 
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.API_AZURE_PUBLISH_PROFILE  }}
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_FOLDER }}'
+
+  deploy-ui:
+    runs-on: ubuntu-latest
+    environment: production
+    needs: deploy-api
+    env:
+      API_URL: '${{ needs.deploy-api.outputs.api-url }}'
+      AZURE_WEBAPP_NAME: 'MyStore-Ui'
+      AZURE_WEBAPP_PACKAGE_PATH: '.'
+      AZURE_WEBAPP_FOLDER: 'my-store-ui'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          cd ./front
+          npm install
+          npm install -g @angular/cli
+
+      - name: Set API URL
+        run: |
+          sed -i 's|http[:][/][/]localhost[:]5000|${{ env.API_URL }}|g' ./front/src/environments/environment.ts
+          sed -i 's|http[:][/][/]localhost[:]5000|${{ env.API_URL }}|g' ./front/src/environments/environment.prod.ts
+
+      - name: Build
+        run: |
+          cd front
+          ng build --output-path '../${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_FOLDER }}'
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         with: 
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
-      
+          publish-profile: ${{ secrets.UI_AZURE_PUBLISH_PROFILE  }}
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_FOLDER }}'   
