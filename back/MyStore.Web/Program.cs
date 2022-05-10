@@ -1,11 +1,11 @@
+using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyStore.Core.Application;
-using MyStore.Core.Database;
+using MyStore.Core.Data.Context;
 using MyStore.Core.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 string corsPolicy = builder.Configuration["CorsSettings:CorsPolicy"];
-string connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING");
 
 // Add services to the container.
 builder.Services.AddCors(options =>
@@ -22,7 +22,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IStoreRepository<>), typeof(StoreRepository<>));
 builder.Services.AddScoped<IStoreApplication, StoreApplication>();
+
+// Configure the database context
+string connectionString;
+if (builder.Environment.IsDevelopment())
+    connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING");
+else
+{
+    builder.Configuration.AddAzureKeyVault(
+           new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+           new DefaultAzureCredential());
+    connectionString = builder.Configuration["MY-STORE-DB-CONNECTION-STRING"];
+}
 builder.Services.AddDbContext<MyStoreDbContext>(options => options.UseNpgsql(connectionString));
+
 
 var app = builder.Build();
 

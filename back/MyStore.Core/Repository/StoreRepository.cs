@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Database;
-using MyStore.Core.Domain.Common;
+using MyStore.Core.Data.Context;
+using MyStore.Core.Data.Model;
 
 namespace MyStore.Core.Repository
 {
