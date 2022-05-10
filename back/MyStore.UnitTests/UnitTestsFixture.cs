@@ -5,7 +5,7 @@ using MyStore.Core.Repository;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xunit.Microsoft.DependencyInjection;
-using MyStore.Core.Database;
+using MyStore.Core.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyStore.UnitTests
@@ -32,8 +32,8 @@ namespace MyStore.UnitTests
 
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
             ContextManager.GetContext().ClearAll();
+            base.Dispose(disposing);
         }
     }
 }

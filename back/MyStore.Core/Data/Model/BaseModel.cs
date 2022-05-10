@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MyStore.Core.Domain.Common
+namespace MyStore.Core.Data.Model
 {
     public abstract class BaseModel
     {

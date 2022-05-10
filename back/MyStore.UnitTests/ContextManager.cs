@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Database;
+using MyStore.Core.Data.Context;
 using System;
 
 namespace MyStore.UnitTests

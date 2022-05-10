@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Database.Configuration;
-using MyStore.Core.Domain.Model;
+using MyStore.Core.Data.Context.Configuration;
+using MyStore.Core.Data.Model;
 
-namespace MyStore.Core.Database
+namespace MyStore.Core.Data.Context
 {
     public class MyStoreDbContext : DbContext
     {
