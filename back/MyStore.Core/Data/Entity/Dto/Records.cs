@@ -1,4 +1,4 @@
-﻿namespace MyStore.Core.Data.Dto
+﻿namespace MyStore.Core.Data.Entity.Dto
 {
     public abstract record BaseDto(uint Id);
 

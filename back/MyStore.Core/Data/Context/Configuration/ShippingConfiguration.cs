@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Data.Model;
+using MyStore.Core.Data.Entity.Model;
 
 namespace MyStore.Core.Data.Context.Configuration
 {

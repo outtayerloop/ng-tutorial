@@ -1,5 +1,5 @@
-﻿using MyStore.Core.Data.Model;
-using MyStore.Core.Data;
+﻿using MyStore.Core.Data.Entity.Model;
+using MyStore.Core.Data.Entity;
 using MyStore.Core.Repository;
 using System.Collections.Generic;
 using System.Linq;

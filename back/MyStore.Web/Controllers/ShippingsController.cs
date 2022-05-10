@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyStore.Core.Application;
-using MyStore.Core.Data.Dto;
+using MyStore.Core.Data.Entity.Dto;
 
 namespace MyStore.Web.Controllers
 {
