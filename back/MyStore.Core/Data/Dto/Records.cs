@@ -1,4 +1,4 @@
-﻿namespace MyStore.Core.Domain.Dto
+﻿namespace MyStore.Core.Data.Dto
 {
     public abstract record BaseDto(uint Id);
 

@@ -1,7 +1,7 @@
 using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyStore.Core.Application;
-using MyStore.Core.Database;
+using MyStore.Core.Data.Context;
 using MyStore.Core.Repository;
 
 var builder = WebApplication.CreateBuilder(args);

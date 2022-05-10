@@ -1,4 +1,4 @@
-﻿namespace MyStore.Core.Domain.Model
+﻿namespace MyStore.Core.Data.Model
 {
     public class Shipping : BaseModel
     {
