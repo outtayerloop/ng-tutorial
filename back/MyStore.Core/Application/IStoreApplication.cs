@@ -1,4 +1,4 @@
-﻿using MyStore.Core.Data.Dto;
+﻿using MyStore.Core.Data.Entity.Dto;
 
 namespace MyStore.Core.Application
 {

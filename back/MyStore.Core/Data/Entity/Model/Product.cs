@@ -1,4 +1,4 @@
-﻿namespace MyStore.Core.Data.Model
+﻿namespace MyStore.Core.Data.Entity.Model
 {
     public class Product : BaseModel
     {

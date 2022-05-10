@@ -1,4 +1,4 @@
-﻿using MyStore.Core.Data.Model;
+﻿using MyStore.Core.Data.Entity.Model;
 
 namespace MyStore.Core.Repository
 {
