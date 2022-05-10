@@ -24,16 +24,17 @@ builder.Services.AddScoped(typeof(IStoreRepository<>), typeof(StoreRepository<>)
 builder.Services.AddScoped<IStoreApplication, StoreApplication>();
 
 // Configure the database context
-string connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING");
-builder.Services.AddDbContext<MyStoreDbContext>(options => options.UseNpgsql(connectionString));
-
-// Configure the Azure Key Vault access
-if (!builder.Environment.IsDevelopment())
+string connectionString;
+if (builder.Environment.IsDevelopment())
+    connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING");
+else
 {
     builder.Configuration.AddAzureKeyVault(
            new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
            new DefaultAzureCredential());
+    connectionString = builder.Configuration["MY-STORE-DB-CONNECTION-STRING"];
 }
+builder.Services.AddDbContext<MyStoreDbContext>(options => options.UseNpgsql(connectionString));
 
 
 var app = builder.Build();
@@ -52,27 +53,5 @@ app.UseCors(corsPolicy);
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.MapGet("/", (IConfiguration config) =>
-{
-    try
-    {
-        return string.Join(
-            Environment.NewLine,
-            "SecretName (Name in Key Vault: 'SecretName')",
-            @"Obtained from configuration with config[""MY-STORE-DB-CONNECTION-STRING""]",
-            $"Value: {config["MY-STORE-DB-CONNECTION-STRING"]}",
-            "");
-    }
-    catch(Exception ex)
-    {
-        string res = "Exception message : ";
-        res += ex.Message;
-        if(ex.InnerException != null)
-            res += "\nInner exception message : " + ex.InnerException.Message;
-        res += "\nStack trace : " + ex.StackTrace;
-        return res;
-    }
-});
 
 app.Run();
