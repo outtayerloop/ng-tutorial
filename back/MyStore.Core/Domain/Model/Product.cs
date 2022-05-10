@@ -1,6 +1,4 @@
-﻿using MyStore.Core.Domain.Common;
-
-namespace MyStore.Core.Domain.Model
+﻿namespace MyStore.Core.Domain.Model
 {
     public class Product : BaseModel
     {

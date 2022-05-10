@@ -1,4 +1,4 @@
-﻿using MyStore.Core.Domain.Common;
+﻿using MyStore.Core.Domain;
 
 namespace MyStore.Core.Repository
 {
