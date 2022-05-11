@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MyStore.Core.Data.Entity.Model
+namespace MyStore.Core.Data.Entity.Relation
 {
-    public abstract class BaseModel
+    public abstract class BaseRelation
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

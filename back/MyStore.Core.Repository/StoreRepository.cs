@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Data.Context;
-using MyStore.Core.Data.Entity.Model;
+using MyStore.Core.Data.Context.Postgres;
+using MyStore.Core.Data.Entity.Relation;
 
 namespace MyStore.Core.Repository
 {
-    public class StoreRepository<T> : IStoreRepository<T> where T : BaseModel
+    public class StoreRepository<T> : IStoreRepository<T> where T : BaseRelation
     {
         private readonly DbSet<T> _models;
 

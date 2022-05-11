@@ -1,4 +1,4 @@
-﻿namespace MyStore.Core.Data.Entity
+﻿namespace MyStore.Core.Data.Entity.Common
 {
     public enum ShippingPackage
     {

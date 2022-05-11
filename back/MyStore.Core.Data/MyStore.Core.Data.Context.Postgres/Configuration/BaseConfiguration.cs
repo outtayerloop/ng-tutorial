@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MyStore.Core.Data.Context.Configuration
+namespace MyStore.Core.Data.Context.Postgres
 {
-    public abstract class BaseConfiguration
+    internal abstract class BaseConfiguration
     {
         protected readonly ModelBuilder _modelBuilder;
 

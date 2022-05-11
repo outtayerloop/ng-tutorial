@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using MyStore.Core.Data.Entity.Model;
 using MyStore.Core.Data.Entity.Dto;
+using MyStore.Core.Data.Entity.Relation;
 
-namespace MyStore.Core.Application
+namespace MyStore.Core.Domain.Service
 {
     public static class Mapping
     {

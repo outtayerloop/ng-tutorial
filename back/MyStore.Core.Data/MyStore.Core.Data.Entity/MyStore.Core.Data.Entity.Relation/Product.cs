@@ -1,6 +1,6 @@
-﻿namespace MyStore.Core.Data.Entity.Model
+﻿namespace MyStore.Core.Data.Entity.Relation
 {
-    public class Product : BaseModel
+    public class Product : BaseRelation
     {
         public string Name { get; set; }
 

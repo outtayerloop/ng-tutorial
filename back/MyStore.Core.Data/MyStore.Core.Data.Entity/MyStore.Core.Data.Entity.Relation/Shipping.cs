@@ -1,6 +1,8 @@
-﻿namespace MyStore.Core.Data.Entity.Model
+﻿using MyStore.Core.Data.Entity.Common;
+
+namespace MyStore.Core.Data.Entity.Relation
 {
-    public class Shipping : BaseModel
+    public class Shipping : BaseRelation
     {
         public ShippingPackage Package { get; set; }
 

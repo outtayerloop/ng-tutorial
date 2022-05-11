@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Data.Entity.Model;
+using MyStore.Core.Data.Entity.Relation;
 
-namespace MyStore.Core.Data.Context.Configuration
+namespace MyStore.Core.Data.Context.Postgres
 {
-    public class ProductConfiguration : BaseConfiguration
+    internal class ProductConfiguration : BaseConfiguration
     {
         public ProductConfiguration(ModelBuilder modelBuilder) : base(modelBuilder) { }
 
