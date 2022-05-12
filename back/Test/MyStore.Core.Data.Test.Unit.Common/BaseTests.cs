@@ -1,12 +1,12 @@
-﻿using MyStore.Core.Data.Context;
+﻿using MyStore.Core.Data.Context.Postgres;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 
-[assembly: TestCollectionOrderer("MyStore.UnitTests.TestsOrderer", "UnitTestsOrderer")]
+[assembly: TestCollectionOrderer("MyStore.Core.Data.Test.Unit.Common.TestsOrderer", "UnitTestsOrderer")]
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
-namespace MyStore.UnitTests
+namespace MyStore.Core.Data.Test.Unit.Common
 {
     public abstract class BaseTests : TestBed<UnitTestsFixture>
     {

@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyStore.Core.Data.Entity.Dto\MyStore.Core.Data.Entity.Dto.csproj" />
     <ProjectReference Include="..\MyStore.Core.Domain.Service\MyStore.Core.Domain.Service.csproj" />
   </ItemGroup>
 

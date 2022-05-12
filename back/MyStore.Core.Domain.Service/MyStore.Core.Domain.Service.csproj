@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyStore.Core.Data.Entity.Dto\MyStore.Core.Data.Entity.Dto.csproj" />
-    <ProjectReference Include="..\MyStore.Core.Data.Entity.Relation\MyStore.Core.Data.Entity.Relation.csproj" />
+    <ProjectReference Include="..\MyStore.Core.Data\MyStore.Core.Data.Entity\MyStore.Core.Data.Entity.Dto\MyStore.Core.Data.Entity.Dto.csproj" />
     <ProjectReference Include="..\MyStore.Core.Repository\MyStore.Core.Repository.csproj" />
   </ItemGroup>
 

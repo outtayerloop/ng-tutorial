@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Data.Context;
+using MyStore.Core.Data.Context.Postgres;
 using System;
 
-namespace MyStore.UnitTests
+namespace MyStore.Core.Repository.Test.Unit
 {
     public static class ContextManager
     {

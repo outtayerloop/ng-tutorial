@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyStore.Core.Data.Entity.Relation\MyStore.Core.Data.Entity.Relation.csproj" />
+    <ProjectReference Include="..\MyStore.Core.Data.Entity\MyStore.Core.Data.Entity.Relation\MyStore.Core.Data.Entity.Relation.csproj" />
   </ItemGroup>
 
 </Project>

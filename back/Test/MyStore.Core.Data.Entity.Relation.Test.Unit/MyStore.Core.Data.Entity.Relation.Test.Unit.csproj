@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\MyStore.Core.Data\MyStore.Core.Data.Entity\MyStore.Core.Data.Entity.Relation\MyStore.Core.Data.Entity.Relation.csproj" />
+  </ItemGroup>
+
 </Project>

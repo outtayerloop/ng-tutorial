@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyStore.Core.Data.Context.Postgres\MyStore.Core.Data.Context.Postgres.csproj" />
-    <ProjectReference Include="..\MyStore.Core.Data.Entity.Relation\MyStore.Core.Data.Entity.Relation.csproj" />
+    <ProjectReference Include="..\MyStore.Core.Data\MyStore.Core.Data.Context.Postgres\MyStore.Core.Data.Context.Postgres.csproj" />
+    <ProjectReference Include="..\MyStore.Core.Data\MyStore.Core.Data.Entity\MyStore.Core.Data.Entity.Relation\MyStore.Core.Data.Entity.Relation.csproj" />
   </ItemGroup>
 
 </Project>

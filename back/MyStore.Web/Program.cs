@@ -1,7 +1,7 @@
 using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Application;
-using MyStore.Core.Data.Context;
+using MyStore.Core.Data.Context.Postgres;
+using MyStore.Core.Domain.Service;
 using MyStore.Core.Repository;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,14 +1,13 @@
-﻿using Xunit.Microsoft.DependencyInjection.Abstracts;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using MyStore.Core.Repository;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using MyStore.Core.Data.Context.Postgres;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit.Microsoft.DependencyInjection;
-using MyStore.Core.Data.Context;
-using Microsoft.EntityFrameworkCore;
+using Xunit.Microsoft.DependencyInjection.Abstracts;
 
-namespace MyStore.UnitTests
+namespace MyStore.Core.Repository.Test.Unit
 {
     public class UnitTestsFixture : TestBedFixture
     {

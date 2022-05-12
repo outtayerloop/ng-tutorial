@@ -1,59 +1,12 @@
-﻿using MyStore.Core.Data.Entity.Model;
-using MyStore.Core.Data.Entity;
-using MyStore.Core.Repository;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MyStore.Core.Data.Entity.Common;
+using MyStore.Core.Data.Entity.Relation;
 using Xunit;
-using Xunit.Abstractions;
-using Xunit.Microsoft.DependencyInjection.Attributes;
 
-namespace MyStore.UnitTests
+namespace MyStore.Core.Repository.Test.Unit
 {
-    [TestCaseOrderer("Xunit.Microsoft.DependencyInjection.TestsOrder.TestPriorityOrderer", "Xunit.Microsoft.DependencyInjection")]
-    [CollectionDefinition("Shippings")]
-    [Collection("Shippings")]
-    public class ShippingTests : BaseTests
+    public class ShippingTests
     {
-        private readonly IStoreRepository<Shipping> _shippingRepository;
-
-        public ShippingTests(ITestOutputHelper testOutputHelper, UnitTestsFixture fixture) : base(testOutputHelper, fixture)
-            => _shippingRepository = fixture.GetService<IStoreRepository<Shipping>>(testOutputHelper);
-
-        [Fact, TestOrder(1)]
-        public void WhenZeroShipping_DoesNotReturnNull()
-        {
-            List<Shipping> actualShippings = _shippingRepository.GetAll();
-
-            Assert.NotNull(actualShippings);
-        }
-
-        [Fact, TestOrder(2)]
-        public void WhenZeroShipping_ReturnsEmpty()
-        {
-            List<Shipping> actualShippings = _shippingRepository.GetAll();
-
-            Assert.Empty(actualShippings);
-        }
-
-        [Fact, TestOrder(3)]
-        public async Task WhenAtLeastOneShipping_CanGetAllShipping()
-        {
-            var expectedShippings = new List<Shipping>
-            {
-                new Shipping { Package = ShippingPackage.OverNight, Price = 25.99M },
-                new Shipping { Package = ShippingPackage.TwoDay, Price = 9.99M },
-                new Shipping { Package = ShippingPackage.Postal, Price = 2.99M },
-            };
-            await _context.AddRangeAsync(expectedShippings);
-            await _context.SaveChangesAsync();
-
-            List<Shipping> actualShippings = _shippingRepository.GetAll();
-
-            Assert.True(expectedShippings.SequenceEqual(actualShippings));
-        }
-
-        [Fact, TestOrder(4)]
+        [Fact]
         public void TwoSameShippings_EqualEachOther()
         {
             var stubShipping1 = GetShipping();
@@ -64,7 +17,7 @@ namespace MyStore.UnitTests
             Assert.True(areEqual);
         }
 
-        [Fact, TestOrder(5)]
+        [Fact]
         public void TwoShippings_WhenDifferentIds_DoNotEqualEachOther()
         {
             var stubShipping1 = GetShipping();
@@ -75,7 +28,7 @@ namespace MyStore.UnitTests
             Assert.False(areEqual);
         }
 
-        [Fact, TestOrder(6)]
+        [Fact]
         public void TwoShippings_WhenDifferentPackages_DoNotEqualEachOther()
         {
             var stubShipping1 = GetShipping();
@@ -87,7 +40,7 @@ namespace MyStore.UnitTests
             Assert.False(areEqual);
         }
 
-        [Fact, TestOrder(7)]
+        [Fact]
         public void TwoShippings_WhenDifferentPrices_DoNotEqualEachOther()
         {
             var stubShipping1 = GetShipping();
@@ -99,7 +52,7 @@ namespace MyStore.UnitTests
             Assert.False(areEqual);
         }
 
-        [Fact, TestOrder(8)]
+        [Fact]
         public void WhenSecondShippingIsNull_DoNotEqualEachOther()
         {
             var stubShipping1 = GetShipping();

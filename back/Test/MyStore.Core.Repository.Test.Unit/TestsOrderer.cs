@@ -3,7 +3,7 @@ using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MyStore.UnitTests
+namespace MyStore.Core.Repository.Test.Unit
 {
     public class TestsOrderer : ITestCollectionOrderer
     {
