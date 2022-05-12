@@ -1,6 +1,6 @@
 ﻿using MyStore.Core.Data.Entity.Relation;
 
-namespace MyStore.Core.Domain.Service
+namespace MyStore.Core.Domain.Service.Store
 {
     public interface IStoreApplication
     {

@@ -8,11 +8,11 @@ using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace MyStore.Core.Repository.Test.Unit
 {
-    public abstract class BaseTests : TestBed<UnitTestsFixture>
+    public abstract class BaseRepositoryTests : TestBed<RepositoryTestsFixture>
     {
         protected readonly MyStoreDbContext _context;
 
-        protected BaseTests(ITestOutputHelper testOutputHelper, UnitTestsFixture fixture) : base(testOutputHelper, fixture)
+        protected BaseRepositoryTests(ITestOutputHelper testOutputHelper, RepositoryTestsFixture fixture) : base(testOutputHelper, fixture)
             => _context = ContextManager.GetContext();
     }
 }

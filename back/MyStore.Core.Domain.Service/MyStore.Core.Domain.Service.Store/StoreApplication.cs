@@ -1,7 +1,7 @@
 ﻿using MyStore.Core.Data.Entity.Relation;
 using MyStore.Core.Repository;
 
-namespace MyStore.Core.Domain.Service
+namespace MyStore.Core.Domain.Service.Store
 {
     public class StoreApplication : IStoreApplication
     {

@@ -2,7 +2,7 @@
 using MyStore.Core.Data.Entity.Dto;
 using MyStore.Core.Data.Entity.Relation;
 
-namespace MyStore.Core.Domain.Service
+namespace MyStore.Core.Domain.Service.Store
 {
     public static class Mapping
     {

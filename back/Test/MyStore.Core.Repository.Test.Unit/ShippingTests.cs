@@ -12,11 +12,11 @@ namespace MyStore.Core.Repository.Test.Unit
     [TestCaseOrderer("Xunit.Microsoft.DependencyInjection.TestsOrder.TestPriorityOrderer", "Xunit.Microsoft.DependencyInjection")]
     [CollectionDefinition("Shippings")]
     [Collection("Shippings")]
-    public class ShippingTests : BaseTests
+    public class ShippingTests : BaseRepositoryTests
     {
         private readonly IStoreRepository<Shipping> _shippingRepository;
 
-        public ShippingTests(ITestOutputHelper testOutputHelper, UnitTestsFixture fixture) : base(testOutputHelper, fixture)
+        public ShippingTests(ITestOutputHelper testOutputHelper, RepositoryTestsFixture fixture) : base(testOutputHelper, fixture)
             => _shippingRepository = fixture.GetService<IStoreRepository<Shipping>>(testOutputHelper);
 
         [Fact, TestOrder(1)]

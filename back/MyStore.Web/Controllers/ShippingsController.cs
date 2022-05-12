@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MyStore.Core.Data.Entity.Dto;
-using MyStore.Core.Domain.Service;
+using MyStore.Core.Domain.Service.Store;
 
 namespace MyStore.Web.Controllers
 {

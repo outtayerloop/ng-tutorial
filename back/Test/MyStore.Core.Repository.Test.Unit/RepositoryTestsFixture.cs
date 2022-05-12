@@ -9,9 +9,9 @@ using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace MyStore.Core.Repository.Test.Unit
 {
-    public class UnitTestsFixture : TestBedFixture
+    public class RepositoryTestsFixture : TestBedFixture
     {
-        public UnitTestsFixture()
+        public RepositoryTestsFixture()
             => ContextManager.GetContext().ClearAll();
 
         protected override void AddServices(IServiceCollection services, IConfiguration? configuration)

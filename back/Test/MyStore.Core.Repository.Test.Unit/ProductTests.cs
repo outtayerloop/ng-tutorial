@@ -11,11 +11,11 @@ namespace MyStore.Core.Repository.Test.Unit
     [TestCaseOrderer("Xunit.Microsoft.DependencyInjection.TestsOrder.TestPriorityOrderer", "Xunit.Microsoft.DependencyInjection")]
     [CollectionDefinition("Products")]
     [Collection("Products")]
-    public class ProductTests : BaseTests
+    public class ProductTests : BaseRepositoryTests
     {
         private readonly IStoreRepository<Product> _productRepository;
 
-        public ProductTests(ITestOutputHelper testOutputHelper, UnitTestsFixture fixture) : base(testOutputHelper, fixture)
+        public ProductTests(ITestOutputHelper testOutputHelper, RepositoryTestsFixture fixture) : base(testOutputHelper, fixture)
             => _productRepository = fixture.GetService<IStoreRepository<Product>>(testOutputHelper);
 
         [Fact, TestOrder(1)]
