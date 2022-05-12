@@ -32,7 +32,7 @@ else
     builder.Configuration.AddAzureKeyVault(
            new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
            new DefaultAzureCredential());
-    connectionString = builder.Configuration["MY-STORE-DB-CONNECTION-STRING"];
+    connectionString = builder.Configuration["MY-STORE-CONNECTION-STRING"];
 }
 builder.Services.AddDbContext<MyStoreDbContext>(options => options.UseNpgsql(connectionString));
 
