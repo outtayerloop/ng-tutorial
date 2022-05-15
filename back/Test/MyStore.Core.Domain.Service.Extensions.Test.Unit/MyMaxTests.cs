@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace MyStore.Core.Domain.Service.Linq.Test.Unit
+namespace MyStore.Core.Domain.Service.Extensions.Test.Unit
 {
     public class MyMaxTests
     {

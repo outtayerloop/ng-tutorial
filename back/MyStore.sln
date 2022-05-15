@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.Core.Repository.Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyStore.Core.Domain.Service", "MyStore.Core.Domain.Service", "{729B46E6-2B5F-411D-BD32-7C89E8235084}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStore.Core.Domain.Service.Linq", "MyStore.Core.Domain.Service\MyStore.Core.Domain.Service.Linq\MyStore.Core.Domain.Service.Linq.csproj", "{13F30FE3-AF22-4490-BFED-FC2B7753ECF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.Core.Domain.Service.Extensions", "MyStore.Core.Domain.Service\MyStore.Core.Domain.Service.Extensions\MyStore.Core.Domain.Service.Extensions.csproj", "{13F30FE3-AF22-4490-BFED-FC2B7753ECF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStore.Core.Domain.Service.Linq.Test.Unit", "Test\MyStore.Core.Domain.Service.Linq.Test.Unit\MyStore.Core.Domain.Service.Linq.Test.Unit.csproj", "{8C872F1C-CC22-4863-9C74-B75E64FAEB16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.Core.Domain.Service.Extensions.Test.Unit", "Test\MyStore.Core.Domain.Service.Extensions.Test.Unit\MyStore.Core.Domain.Service.Extensions.Test.Unit.csproj", "{8C872F1C-CC22-4863-9C74-B75E64FAEB16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
