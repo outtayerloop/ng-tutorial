@@ -25,5 +25,11 @@ namespace MyStore.Web.Controllers
             var products = _storeApplication.GetAllProducts();
             return products.Select(p => _mapper.Map<ProductDto>(p)).ToList();
         }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<List<ProductDto>> AddProductRange([FromBody] List<ProductDto> products)
+            => Ok(products);
     }
 }

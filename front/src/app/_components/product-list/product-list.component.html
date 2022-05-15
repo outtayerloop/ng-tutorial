@@ -1,4 +1,7 @@
-<h2>Products</h2>
+<div id="products-header">
+  <h2>Products</h2>
+  <app-product-upload (onCreatedProducts)="onCreatedProducts($event)"></app-product-upload>
+</div>
 
 <div *ngFor="let product of products">
   <h3>
@@ -11,8 +14,7 @@
   </h3>
   <p *ngIf="product.description">Description : {{ product.description }}</p>
   <button type="button" (click)="share()">Share</button>
-  <app-product-alerts [product]="product" (notifyCustomEvent)="onNotify()">
-  </app-product-alerts>
+  <app-product-alerts [product]="product" (notifyCustomEvent)="onNotify()"></app-product-alerts>
 </div>
 
 <!-- 

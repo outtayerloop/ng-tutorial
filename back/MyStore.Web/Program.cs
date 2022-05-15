@@ -13,7 +13,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: corsPolicy,
         corsBuilder =>
         {
-            corsBuilder.WithOrigins(builder.Configuration["CorsSettings:ClientHost"]);
+            corsBuilder.WithOrigins(builder.Configuration["CorsSettings:ClientHost"]).AllowAnyHeader();
         });
 });
 builder.Services.AddControllers();

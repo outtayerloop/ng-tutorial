@@ -24,6 +24,10 @@ export class ProductListComponent implements OnInit {
   onNotify = () => {
     window.alert('You will be notified when the product goes on sale');
   };
+
+  onCreatedProducts(products: Product[]): void {
+    this.products = this.products.concat(products);
+  }
 }
 
 /*
