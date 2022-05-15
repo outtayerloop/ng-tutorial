@@ -22,7 +22,7 @@ namespace MyStore.Core.Domain.Service.Store
         public List<Shipping> GetAllShippings()
             => _shippingRepository.GetAll();
 
-        public List<Product> AddProductRange(List<Product> products)
-            => _productRepository.AddRange(products);
+        public async Task<List<Product>> AddProductRangeAsync(List<Product> products)
+            => await _productRepository.AddRangeAsync(products);
     }
 }

@@ -18,10 +18,10 @@ namespace MyStore.Core.Repository
         public List<T> GetAll()
             => _models.ToList();
 
-        public List<T> AddRange(List<T> entities)
+        public async Task<List<T>> AddRangeAsync(List<T> entities)
         {
-            _models.AddRange(entities);
-            _context.SaveChanges();
+            await _models.AddRangeAsync(entities);
+            await _context.SaveChangesAsync();
             return entities;
         }
     }

@@ -6,6 +6,6 @@ namespace MyStore.Core.Repository
     {
         List<T> GetAll();
 
-        List<T> AddRange(List<T> entities);
+        Task<List<T>> AddRangeAsync(List<T> entities);
     }
 }

@@ -30,10 +30,10 @@ namespace MyStore.Web.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<List<ProductDto>> AddProductRange([FromBody] List<ProductDto> products)
+        public async Task<ActionResult<List<ProductDto>>> AddProductRangeAsync([FromBody] List<ProductDto> products)
         {
             List<Product> newProducts = products.Select(p => _mapper.Map<Product>(p)).ToList();
-            List<Product> createdProducts = _storeApplication.AddProductRange(newProducts);
+            List<Product> createdProducts = await _storeApplication.AddProductRangeAsync(newProducts);
             return createdProducts.Select(p => _mapper.Map<ProductDto>(p)).ToList();
         }
     }
