@@ -21,7 +21,8 @@ namespace MyStore.Core.Domain.Service.Store
             {
                 cfg.CreateMap<Product, ProductDto>()
                     .ConstructUsing(product =>
-                        new ProductDto(product.Id, product.Name, product.Price, product.Description));
+                        new ProductDto(product.Id, product.Name, product.Price, product.Description))
+                    .ReverseMap();
 
                 cfg.CreateMap<Shipping, ShippingDto>()
                     .ConstructUsing(shipping =>

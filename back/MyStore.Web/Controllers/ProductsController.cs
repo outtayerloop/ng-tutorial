@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MyStore.Core.Data.Entity.Dto;
+using MyStore.Core.Data.Entity.Relation;
 using MyStore.Core.Domain.Service.Store;
 
 namespace MyStore.Web.Controllers
@@ -22,7 +23,7 @@ namespace MyStore.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<ProductDto>> GetAllProducts()
         {
-            var products = _storeApplication.GetAllProducts();
+            List<Product> products = _storeApplication.GetAllProducts();
             return products.Select(p => _mapper.Map<ProductDto>(p)).ToList();
         }
 
@@ -30,6 +31,10 @@ namespace MyStore.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<List<ProductDto>> AddProductRange([FromBody] List<ProductDto> products)
-            => Ok(products);
+        {
+            List<Product> newProducts = products.Select(p => _mapper.Map<Product>(p)).ToList();
+            List<Product> createdProducts = _storeApplication.AddProductRange(newProducts);
+            return createdProducts.Select(p => _mapper.Map<ProductDto>(p)).ToList();
+        }
     }
 }

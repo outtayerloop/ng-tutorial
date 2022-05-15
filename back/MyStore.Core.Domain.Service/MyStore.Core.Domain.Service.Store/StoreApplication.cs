@@ -21,5 +21,8 @@ namespace MyStore.Core.Domain.Service.Store
 
         public List<Shipping> GetAllShippings()
             => _shippingRepository.GetAll();
+
+        public List<Product> AddProductRange(List<Product> products)
+            => _productRepository.AddRange(products);
     }
 }

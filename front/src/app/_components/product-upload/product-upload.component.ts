@@ -25,7 +25,7 @@ export class ProductUploadComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.createdProductsSubscription.unsubscribe();
+    this.createdProductsSubscription.unsubscribe();
   }
 
   onUploadedProducts(event: Event): void {
