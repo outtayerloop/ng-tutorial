@@ -10,7 +10,7 @@ import { CartService } from '../../_services/cart.service';
 })
 export class CartComponent implements OnInit {
   items = this.cartService.getItems();
-  checkoutForm = this.formBuilder.group({
+  readonly checkoutForm = this.formBuilder.group({
     name: '',
     address: '',
   });

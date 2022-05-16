@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
-import { Product } from '../_models/product';
+import { BaseModel } from '../_models/base';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +16,15 @@ export class FileService {
    * @param reader provided file reader
    * @returns an array of the extracted models
    */
-  xlsxToJson<BaseModel>(reader: FileReader): BaseModel[] | null {
+  xlsxToJson<TModel extends BaseModel>(reader: FileReader): any | null {
     const data = reader.result;
     if(reader.result){
       const workBook = XLSX.read(data, { type: 'binary' });
       const jsonData = workBook.SheetNames.reduce((_, name) => {
         const sheet = workBook.Sheets[name];
-        return XLSX.utils.sheet_to_json<BaseModel>(sheet);
+        return XLSX.utils.sheet_to_json<TModel>(sheet);
       }, {});
-      return <BaseModel[]>jsonData;
+      return jsonData;
     }
     return null;
   }

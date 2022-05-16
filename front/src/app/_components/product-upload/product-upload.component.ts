@@ -2,8 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/_models/product';
+import { ValidationStatus } from 'src/app/_models/validation-status';
 import { FileService } from 'src/app/_services/file.service';
 import { ProductService } from 'src/app/_services/product.service';
+import { ValidationService } from 'src/app/_services/validation.service';
 
 @Component({
   selector: 'app-product-upload',
@@ -11,13 +13,14 @@ import { ProductService } from 'src/app/_services/product.service';
   styleUrls: ['./product-upload.component.css']
 })
 export class ProductUploadComponent implements OnInit, OnDestroy {
-  @Output() onCreatedProducts: EventEmitter<Product[]> = new EventEmitter<Product[]>();
+  @Output() readonly onCreatedProducts: EventEmitter<Product[]> = new EventEmitter<Product[]>();
   private createdProductsSubscription!: Subscription;
   @Input() currentProducts !: Product[];
 
   constructor(
-    private fileService: FileService,
-    private productService: ProductService) { }
+    private readonly fileService: FileService,
+    private readonly productService: ProductService,
+    private readonly validationService: ValidationService) { }
 
   ngOnInit(): void {
     this.createdProductsSubscription = this.productService.createdProducts.subscribe(
@@ -36,8 +39,13 @@ export class ProductUploadComponent implements OnInit, OnDestroy {
     const reader = new FileReader();
     reader.readAsBinaryString(uploadedFile);
     reader.onload = _ => {
-      const products = this.fileService.xlsxToJson<Product>(reader);
-      this.productService.addProductRange(<Product[]>products);
+      const json = this.fileService.xlsxToJson<Product>(reader);
+      const products: Product[] = Array.from(json).map(product => new Product(product));
+      const validation = this.validationService.validateProductRangeCreation(products);
+      if(validation.status === ValidationStatus.Valid)
+        this.productService.addProductRange(products);
+      else
+        alert(`Status : ${validation.status}. Message : ${validation.message}`);
     }
   }
 

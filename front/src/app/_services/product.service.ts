@@ -9,8 +9,8 @@ import { BaseService } from './base.service';
   providedIn: 'root'
 })
 export class ProductService extends BaseService {
-  private createdProductsSubject = new BehaviorSubject<Product[]>([]);
-  createdProducts = this.createdProductsSubject.asObservable();
+  private readonly createdProductsSubject = new BehaviorSubject<Product[]>([]);
+  readonly createdProducts = this.createdProductsSubject.asObservable();
 
   getAllProducts(): Observable<Product[]>{
     return this.http.get<Product[]>(`${this.apiUrl}/products`);
