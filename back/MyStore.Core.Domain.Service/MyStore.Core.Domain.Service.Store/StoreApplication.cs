@@ -1,15 +1,16 @@
 ﻿using MyStore.Core.Data.Entity.Relation;
 using MyStore.Core.Repository;
+using MyStore.Core.Repository.Products;
 
 namespace MyStore.Core.Domain.Service.Store
 {
     public class StoreApplication : IStoreApplication
     {
-        private readonly IStoreRepository<Product> _productRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IStoreRepository<Shipping> _shippingRepository;
  
         public StoreApplication(
-            IStoreRepository<Product> productRepository, 
+            IProductRepository productRepository, 
             IStoreRepository<Shipping> shippingRepository)
         {
             _productRepository = productRepository;
@@ -22,7 +23,7 @@ namespace MyStore.Core.Domain.Service.Store
         public List<Shipping> GetAllShippings()
             => _shippingRepository.GetAll();
 
-        public async Task<List<Product>> AddProductRangeAsync(List<Product> products)
-            => await _productRepository.AddRangeAsync(products);
+        public List<Product> AddProductRange(List<Product> products)
+            => _productRepository.AddRange(products);
     }
 }

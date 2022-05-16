@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/_models/product';
 import { FileService } from 'src/app/_services/file.service';
@@ -13,6 +13,7 @@ import { ProductService } from 'src/app/_services/product.service';
 export class ProductUploadComponent implements OnInit, OnDestroy {
   @Output() onCreatedProducts: EventEmitter<Product[]> = new EventEmitter<Product[]>();
   private createdProductsSubscription!: Subscription;
+  @Input() currentProducts !: Product[];
 
   constructor(
     private fileService: FileService,
@@ -20,7 +21,7 @@ export class ProductUploadComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.createdProductsSubscription = this.productService.createdProducts.subscribe(
-      products => { if(products.length > 0 ) this.onCreatedProducts.emit(products) }
+      products => this.onNewlyAddedProducts(products)
     );
   }
 
@@ -38,5 +39,11 @@ export class ProductUploadComponent implements OnInit, OnDestroy {
       const products = this.fileService.xlsxToJson<Product>(reader);
       this.productService.addProductRange(<Product[]>products);
     }
+  }
+
+  onNewlyAddedProducts(products: Product[]): void {
+    products = products.filter(product => this.currentProducts.includes(product));
+    if(products.length > 0 ) 
+      this.onCreatedProducts.emit(products)
   }
 }

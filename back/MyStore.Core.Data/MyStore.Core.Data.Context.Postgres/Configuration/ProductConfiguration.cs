@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyStore.Core.Data.Entity.Constants;
 using MyStore.Core.Data.Entity.Relation;
 
 namespace MyStore.Core.Data.Context.Postgres
@@ -22,7 +23,7 @@ namespace MyStore.Core.Data.Context.Postgres
             _modelBuilder.Entity<Product>()
                 .Property(p => p.Name)
                 .HasColumnName("NAME")
-                .HasColumnType("VARCHAR(255)")
+                .HasMaxLength(ProductConstants.MaxNameLenth)
                 .IsRequired(true);
 
             _modelBuilder.Entity<Product>()
@@ -32,7 +33,7 @@ namespace MyStore.Core.Data.Context.Postgres
             _modelBuilder.Entity<Product>()
                 .Property(p => p.Description)
                 .HasColumnName("DESCRIPTION")
-                .HasColumnType("TEXT")
+                .HasMaxLength(ProductConstants.MaxDescriptionLenth)
                 .IsRequired(false);
 
             _modelBuilder.Entity<Product>()
@@ -40,6 +41,13 @@ namespace MyStore.Core.Data.Context.Postgres
                 .HasColumnName("PRICE")
                 .HasColumnType("DECIMAL")
                 .IsRequired(true);
+
+            _modelBuilder.Entity<Product>()
+                .HasCheckConstraint(
+                    "CHK_PRODUCT_PRICE", 
+                    $"\"PRICE\" >= {ProductConstants.MinPrice} AND \"PRICE\" <= {ProductConstants.MaxPrice}",
+                    c => c.HasName("CHK_PRODUCT_PRICE")
+                );
         }
     }
 }

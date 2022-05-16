@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyStore.Core.Data.Context.Postgres;
+using MyStore.Core.Repository.Products;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit.Microsoft.DependencyInjection;
@@ -17,6 +18,7 @@ namespace MyStore.Core.Repository.Test.Unit
         protected override void AddServices(IServiceCollection services, IConfiguration? configuration)
         {
             services.AddSingleton(typeof(IStoreRepository<>), typeof(StoreRepository<>));
+            services.AddSingleton<IProductRepository, ProductRepository>();
             string connectionString = ContextManager.ConnectionString;
             services.AddDbContext<MyStoreDbContext>(options => options.UseNpgsql(connectionString));
         }

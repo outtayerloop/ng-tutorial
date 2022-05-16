@@ -7,14 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="11.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\MyStore.Core.Data\MyStore.Core.Data.Entity\MyStore.Core.Data.Entity.Dto\MyStore.Core.Data.Entity.Dto.csproj" />
-    <ProjectReference Include="..\..\MyStore.Core.Data\MyStore.Core.Data.Entity\MyStore.Core.Data.Entity.Relation\MyStore.Core.Data.Entity.Relation.csproj" />
     <ProjectReference Include="..\..\MyStore.Core.Domain.Model\MyStore.Core.Domain.Model.Entity\MyStore.Core.Domain.Model.Entity.csproj" />
-    <ProjectReference Include="..\..\MyStore.Core.Repository\MyStore.Core.Repository.csproj" />
+    <ProjectReference Include="..\MyStore.Core.Domain.Service.Store\MyStore.Core.Domain.Service.Store.csproj" />
   </ItemGroup>
 
 </Project>

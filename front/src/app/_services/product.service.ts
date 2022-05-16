@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -20,10 +20,13 @@ export class ProductService extends BaseService {
     if(products.length > 0){
       this.http.post(`${this.apiUrl}/products`, products).subscribe({
         next: res => this.createdProductsSubject.next(<Product[]>res),
-        error: (err: HttpErrorResponse) => alert(err.error)
+        error: (err: HttpErrorResponse) => {
+          const errorMessage = err.error.status && err.error.message
+            ? `Status : ${err.error.status}. Message : ${err.error.message}`
+            : err.error.title;
+          alert(errorMessage);
+        }
       })
     }
-    else
-      alert("An empty product list was uploaded");
   }
 }

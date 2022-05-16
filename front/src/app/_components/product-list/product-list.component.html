@@ -1,6 +1,9 @@
 <div id="products-header">
   <h2>Products</h2>
-  <app-product-upload (onCreatedProducts)="onCreatedProducts($event)"></app-product-upload>
+  <app-product-upload 
+    (onCreatedProducts)="onCreatedProducts($event)"
+    [currentProducts]="products"
+    ></app-product-upload>
 </div>
 
 <div *ngFor="let product of products">

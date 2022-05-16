@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MyStore.Core.Data.Entity.Relation;
+using MyStore.Core.Repository.Products;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,10 +15,10 @@ namespace MyStore.Core.Repository.Test.Unit
     [Collection("Products")]
     public class ProductTests : BaseRepositoryTests
     {
-        private readonly IStoreRepository<Product> _productRepository;
+        private readonly IProductRepository _productRepository;
 
         public ProductTests(ITestOutputHelper testOutputHelper, RepositoryTestsFixture fixture) : base(testOutputHelper, fixture)
-            => _productRepository = fixture.GetService<IStoreRepository<Product>>(testOutputHelper);
+            => _productRepository = fixture.GetService<IProductRepository>(testOutputHelper);
 
         [Fact, TestOrder(1)]
         public void WhenZeroProduct_DoesNotReturnNull()
@@ -48,34 +49,34 @@ namespace MyStore.Core.Repository.Test.Unit
         }
 
         [Fact, TestOrder(4)]
-        public async Task WhenZeroProduct_DoesNotAddAnyProduct()
+        public void WhenZeroProduct_DoesNotAddAnyProduct()
         {
             var emptyProductList = new List<Product>();
 
-            await _productRepository.AddRangeAsync(emptyProductList);
+            _productRepository.AddRange(emptyProductList);
             DbSet<Product> actualProducts = _context.Products;
 
             Assert.Empty(actualProducts);
         }
 
         [Fact, TestOrder(5)]
-        public async Task WhenAtLeastOneProduct_InsertsNewLinesInDatabase()
+        public void WhenAtLeastOneProduct_InsertsNewLinesInDatabase()
         {
             List<Product> products = GetProductList();
             int expectedLineCount = products.Count;
 
-            await _productRepository.AddRangeAsync(products);
+            _productRepository.AddRange(products);
             int actualLineCount = _context.Products.Count();
 
             Assert.Equal(actualLineCount, expectedLineCount);
         }
 
         [Fact, TestOrder(6)]
-        public async Task WhenAtLeastOneProduct_SetsIdForEachNewProduct()
+        public void WhenAtLeastOneProduct_SetsIdForEachNewProduct()
         {
             List<Product> products = GetProductList();
 
-            await _productRepository.AddRangeAsync(products);
+            _productRepository.AddRange(products);
             DbSet<Product> actualProducts = _context.Products;
             bool haveAllBeenIdentified = actualProducts.All(p => p.Id > 0);
 
@@ -83,11 +84,11 @@ namespace MyStore.Core.Repository.Test.Unit
         }
 
         [Fact, TestOrder(7)]
-        public async Task WhenAtLeastOneProduct_AddsInputProducts()
+        public void WhenAtLeastOneProduct_AddsInputProducts()
         {
             List<Product> expectedProducts = GetProductList();
 
-            await _productRepository.AddRangeAsync(expectedProducts);
+            _productRepository.AddRange(expectedProducts);
             List<Product> actualProducts = _context.Products.ToList();
             for(int i = 0; i < expectedProducts.Count; ++i)
                 expectedProducts[i].Id = actualProducts[i].Id;

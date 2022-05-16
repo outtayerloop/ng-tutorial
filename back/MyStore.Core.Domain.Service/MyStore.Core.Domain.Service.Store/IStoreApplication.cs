@@ -8,6 +8,6 @@ namespace MyStore.Core.Domain.Service.Store
 
         List<Shipping> GetAllShippings();
 
-        Task<List<Product>> AddProductRangeAsync(List<Product> products);
+        List<Product> AddProductRange(List<Product> products);
     }
 }

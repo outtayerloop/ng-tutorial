@@ -2,7 +2,9 @@ using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyStore.Core.Data.Context.Postgres;
 using MyStore.Core.Domain.Service.Store;
+using MyStore.Core.Domain.Service.Validation;
 using MyStore.Core.Repository;
+using MyStore.Core.Repository.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 string corsPolicy = builder.Configuration["CorsSettings:CorsPolicy"];
@@ -21,7 +23,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IStoreRepository<>), typeof(StoreRepository<>));
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IStoreApplication, StoreApplication>();
+builder.Services.AddScoped<ProductValidator>();
+builder.Services.AddTransient<Func<ValidatorType, IValidator>>(validatorProvider => key =>
+{
+    return key switch
+    {
+        ValidatorType.Product => validatorProvider.GetService<ProductValidator>(),
+        _ => throw new NotImplementedException("No validator found for given type")
+    };
+});
 
 // Configure the database context
 string connectionString;
