@@ -80,5 +80,17 @@ namespace MyStore.Core.Domain.Service.Extensions.Test.Unit
 
             Assert.Equal(expectedResult, actualResult);
         }
+
+        [Fact]
+        public void FilledEnumerable_WhenReferenceElements_ReturnsMax()
+        {
+            var expectedResult = new Stub(5);
+            var otherStub = new Stub(2);
+            IEnumerable<Stub> filledEnumerator = new List<Stub> { expectedResult, otherStub };
+
+            Stub actualResult = filledEnumerator.MyMax();
+
+            Assert.Equal(expectedResult, actualResult);
+        }
     }
 }
