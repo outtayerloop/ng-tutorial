@@ -1,7 +1,7 @@
 using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Application;
-using MyStore.Core.Data.Context;
+using MyStore.Core.Data.Context.Postgres;
+using MyStore.Core.Domain.Service.Store;
 using MyStore.Core.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,7 +32,7 @@ else
     builder.Configuration.AddAzureKeyVault(
            new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
            new DefaultAzureCredential());
-    connectionString = builder.Configuration["MY-STORE-DB-CONNECTION-STRING"];
+    connectionString = builder.Configuration["MY-STORE-CONNECTION-STRING"];
 }
 builder.Services.AddDbContext<MyStoreDbContext>(options => options.UseNpgsql(connectionString));
 
