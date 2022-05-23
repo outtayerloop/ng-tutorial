@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace MyStore.Core.Domain.Service.Linq.Test.Unit
+namespace MyStore.Core.Domain.Service.Extensions.Test.Unit
 {
     public class MyMaxTests
     {
@@ -77,6 +77,18 @@ namespace MyStore.Core.Domain.Service.Linq.Test.Unit
             IEnumerable<int> filledEnumerator = new List<int> { -1, -2, -2, 0, 0, 1, 4, 4, 5, -3 };
 
             int actualResult = filledEnumerator.MyMax();
+
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Fact]
+        public void FilledEnumerable_WhenReferenceElements_ReturnsMax()
+        {
+            var expectedResult = new Stub(5);
+            var otherStub = new Stub(2);
+            IEnumerable<Stub> filledEnumerator = new List<Stub> { expectedResult, otherStub };
+
+            Stub actualResult = filledEnumerator.MyMax();
 
             Assert.Equal(expectedResult, actualResult);
         }

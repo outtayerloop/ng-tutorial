@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyStore.Core.Domain.Service\MyStore.Core.Domain.Service.Store\MyStore.Core.Domain.Service.Store.csproj" />
+    <ProjectReference Include="..\MyStore.Core.Domain.Service\MyStore.Core.Domain.Service.Validation\MyStore.Core.Domain.Service.Validation.csproj" />
   </ItemGroup>
 
 </Project>

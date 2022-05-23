@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace MyStore.Core.Domain.Service.Linq.Test.Unit
+namespace MyStore.Core.Domain.Service.Extensions.Test.Unit
 {
     public class MySelectTests
     {
-        Func<StubRecord, int> _selector = s => s.StubProperty;
+        Func<Stub, int> _selector = s => s.StubProperty;
 
         private static readonly int _stubPropertyValue = 1;
 
-        private static readonly StubRecord _stub = new StubRecord(_stubPropertyValue);
+        private static readonly Stub _stub = new Stub(_stubPropertyValue);
 
         private static readonly int _secondStubPropertyValue = _stubPropertyValue + 1;
 
-        private static readonly StubRecord _secondsSub = new StubRecord(_secondStubPropertyValue);
+        private static readonly Stub _secondsSub = new Stub(_secondStubPropertyValue);
 
         [Fact]
         public void EmptyEnumerable_ReturnsEmptyEnumerable()
         {
-            IEnumerable<StubRecord> emptyEnumerator = new List<StubRecord>();
+            IEnumerable<Stub> emptyEnumerator = new List<Stub>();
 
             IEnumerable<int> actualResult = emptyEnumerator.MySelect(_selector);
 
@@ -30,7 +30,7 @@ namespace MyStore.Core.Domain.Service.Linq.Test.Unit
         [Fact]
         public void FilledEnumerable_ReturnsSameLengthEnumerable()
         {
-            IEnumerable<StubRecord> filledEnumerator = new List<StubRecord> { _stub };
+            IEnumerable<Stub> filledEnumerator = new List<Stub> { _stub };
 
             IEnumerable<int> actualResult = filledEnumerator.MySelect(_selector);
 
@@ -40,7 +40,7 @@ namespace MyStore.Core.Domain.Service.Linq.Test.Unit
         [Fact]
         public void FilledEnumerable_ReturnsMappedElementsInOrder()
         {
-            var filledEnumerator = new List<StubRecord>
+            var filledEnumerator = new List<Stub>
             {
                 _stub,
                 _secondsSub
@@ -56,8 +56,8 @@ namespace MyStore.Core.Domain.Service.Linq.Test.Unit
         [Fact]
         public void FilledEnumerable_DoesNotModifyInitialEnumerable()
         {
-            var expectedEnumerable = new List<StubRecord> { _stub };
-            IEnumerable<StubRecord> actualEnumerator = expectedEnumerable;
+            var expectedEnumerable = new List<Stub> { _stub };
+            IEnumerable<Stub> actualEnumerator = expectedEnumerable;
 
             actualEnumerator.MySelect(_selector);
 

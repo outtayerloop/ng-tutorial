@@ -7,5 +7,7 @@ namespace MyStore.Core.Domain.Service.Store
         List<Product> GetAllProducts();
 
         List<Shipping> GetAllShippings();
+
+        List<Product> AddProductRange(List<Product> products);
     }
 }

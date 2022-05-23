@@ -29,9 +29,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.Core.Repository.Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyStore.Core.Domain.Service", "MyStore.Core.Domain.Service", "{729B46E6-2B5F-411D-BD32-7C89E8235084}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStore.Core.Domain.Service.Linq", "MyStore.Core.Domain.Service\MyStore.Core.Domain.Service.Linq\MyStore.Core.Domain.Service.Linq.csproj", "{13F30FE3-AF22-4490-BFED-FC2B7753ECF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.Core.Domain.Service.Extensions", "MyStore.Core.Domain.Service\MyStore.Core.Domain.Service.Extensions\MyStore.Core.Domain.Service.Extensions.csproj", "{13F30FE3-AF22-4490-BFED-FC2B7753ECF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStore.Core.Domain.Service.Linq.Test.Unit", "Test\MyStore.Core.Domain.Service.Linq.Test.Unit\MyStore.Core.Domain.Service.Linq.Test.Unit.csproj", "{8C872F1C-CC22-4863-9C74-B75E64FAEB16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.Core.Domain.Service.Extensions.Test.Unit", "Test\MyStore.Core.Domain.Service.Extensions.Test.Unit\MyStore.Core.Domain.Service.Extensions.Test.Unit.csproj", "{8C872F1C-CC22-4863-9C74-B75E64FAEB16}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.Core.Domain.Service.Validation", "MyStore.Core.Domain.Service\MyStore.Core.Domain.Service.Validation\MyStore.Core.Domain.Service.Validation.csproj", "{2940363B-FBDD-4858-871A-C070C36FDA4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyStore.Core.Domain.Model", "MyStore.Core.Domain.Model", "{14244332-5872-4E31-9BAD-F6D500961E3B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.Core.Domain.Model.Entity", "MyStore.Core.Domain.Model\MyStore.Core.Domain.Model.Entity\MyStore.Core.Domain.Model.Entity.csproj", "{C6C295B6-C345-434C-BB43-03009E0B707D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.Core.Data.Entity.Constants", "MyStore.Core.Data.Entity\MyStore.Core.Data.Entity.Constants\MyStore.Core.Data.Entity.Constants.csproj", "{C8B7441E-25E0-42D4-912B-C558DAE605D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +91,18 @@ Global
 		{8C872F1C-CC22-4863-9C74-B75E64FAEB16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C872F1C-CC22-4863-9C74-B75E64FAEB16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C872F1C-CC22-4863-9C74-B75E64FAEB16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2940363B-FBDD-4858-871A-C070C36FDA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2940363B-FBDD-4858-871A-C070C36FDA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2940363B-FBDD-4858-871A-C070C36FDA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2940363B-FBDD-4858-871A-C070C36FDA4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6C295B6-C345-434C-BB43-03009E0B707D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6C295B6-C345-434C-BB43-03009E0B707D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6C295B6-C345-434C-BB43-03009E0B707D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6C295B6-C345-434C-BB43-03009E0B707D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B7441E-25E0-42D4-912B-C558DAE605D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B7441E-25E0-42D4-912B-C558DAE605D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B7441E-25E0-42D4-912B-C558DAE605D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B7441E-25E0-42D4-912B-C558DAE605D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +118,9 @@ Global
 		{021E41C7-52A3-4A8F-AEC2-2ABB12AC9D3F} = {56856E44-1B36-410D-B2C3-34BA1641DED0}
 		{13F30FE3-AF22-4490-BFED-FC2B7753ECF6} = {729B46E6-2B5F-411D-BD32-7C89E8235084}
 		{8C872F1C-CC22-4863-9C74-B75E64FAEB16} = {56856E44-1B36-410D-B2C3-34BA1641DED0}
+		{2940363B-FBDD-4858-871A-C070C36FDA4B} = {729B46E6-2B5F-411D-BD32-7C89E8235084}
+		{C6C295B6-C345-434C-BB43-03009E0B707D} = {14244332-5872-4E31-9BAD-F6D500961E3B}
+		{C8B7441E-25E0-42D4-912B-C558DAE605D8} = {68CEF703-6DF3-4A2B-A318-9683A1E2AD10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BFAD153-94D6-42C0-AC44-CA86F5AA602C}

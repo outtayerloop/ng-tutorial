@@ -8,7 +8,7 @@ import { Product } from '../../_models/product';
 })
 export class ProductAlertsComponent implements OnInit {
   @Input() product!: Product | undefined;
-  @Output() notifyCustomEvent = new EventEmitter();
+  @Output() readonly notifyCustomEvent = new EventEmitter();
 
   constructor() {}
 

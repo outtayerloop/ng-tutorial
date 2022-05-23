@@ -1,0 +1,13 @@
+<button 
+    type="button" 
+    (click)="productUploadInput.click()"
+    title="Upload products Excel file (format : name, price, description)">
+    Upload products
+</button>
+<input 
+    #productUploadInput
+    type="file" 
+    hidden
+    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    (change)="onUploadedProducts($event)"
+/>

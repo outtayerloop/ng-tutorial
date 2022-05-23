@@ -2,8 +2,8 @@
 
 namespace MyStore.Core.Repository
 {
-    public interface IStoreRepository<T> where T : BaseRelation
+    public interface IStoreRepository<TRelation> where TRelation : BaseRelation
     {
-        List<T> GetAll();
+        List<TRelation> GetAll();
     }
 }

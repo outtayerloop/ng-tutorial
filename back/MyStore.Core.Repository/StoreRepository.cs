@@ -4,14 +4,18 @@ using MyStore.Core.Data.Entity.Relation;
 
 namespace MyStore.Core.Repository
 {
-    public class StoreRepository<T> : IStoreRepository<T> where T : BaseRelation
+    public class StoreRepository<TRelation> : IStoreRepository<TRelation> where TRelation : BaseRelation
     {
-        private readonly DbSet<T> _models;
+        protected readonly DbSet<TRelation> _models;
+        protected readonly MyStoreDbContext _context;
 
         public StoreRepository(MyStoreDbContext context)
-            => _models = context.Set<T>();
+        {
+            _context = context;
+            _models = _context.Set<TRelation>();
+        }
 
-        public List<T> GetAll()
+        public List<TRelation> GetAll()
             => _models.ToList();
     }
 }
