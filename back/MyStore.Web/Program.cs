@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using MyStore.Core.Data.Context.Postgres;
 using MyStore.Core.Domain.Service.Store;
 using MyStore.Core.Domain.Service.Validation;
+using MyStore.Core.Domain.Service.Validation.Rules;
 using MyStore.Core.Repository;
 using MyStore.Core.Repository.Products;
+using MyStore.Core.Repository.Shippings;
 
 var builder = WebApplication.CreateBuilder(args);
 string corsPolicy = builder.Configuration["CorsSettings:CorsPolicy"];
@@ -24,21 +26,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IStoreRepository<>), typeof(StoreRepository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
 builder.Services.AddScoped<IStoreApplication, StoreApplication>();
-builder.Services.AddScoped<ProductValidator>();
-builder.Services.AddTransient<Func<ValidatorType, IValidator>>(validatorProvider => key =>
-{
-    return key switch
-    {
-        ValidatorType.Product => validatorProvider.GetService<ProductValidator>(),
-        _ => throw new NotImplementedException("No validator found for given type")
-    };
-});
+builder.Services.AddScoped<NameRule>();
+builder.Services.AddScoped<DescriptionRule>();
+builder.Services.AddScoped<PriceRule>();
+builder.Services.AddScoped<IProductValidator, ProductValidator>();
 
 // Configure the database context
 string connectionString;
 if (builder.Environment.IsDevelopment())
-    connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING");
+    connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING")!;
 else
 {
     builder.Configuration.AddAzureKeyVault(

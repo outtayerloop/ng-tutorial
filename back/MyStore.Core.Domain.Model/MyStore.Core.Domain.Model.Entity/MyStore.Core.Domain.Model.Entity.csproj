@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MyStore.Core.Data.Entity\MyStore.Core.Data.Entity.Constants\MyStore.Core.Data.Entity.Constants.csproj" />
+    <ProjectReference Include="..\..\MyStore.Core.Data\MyStore.Core.Data.Entity\MyStore.Core.Data.Entity.Common\MyStore.Core.Data.Entity.Common.csproj" />
   </ItemGroup>
 
 </Project>

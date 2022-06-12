@@ -14,22 +14,22 @@ namespace MyStore.Web.Controllers
     {
         private readonly IStoreApplication _storeApplication;
         private readonly IMapper _mapper;
-        private readonly IValidator _productValidator;
+        private readonly IProductValidator _productValidator;
 
         public ProductsController(
-            IStoreApplication storeApplication, 
-            Func<ValidatorType, IValidator> validatorResolver)
+            IStoreApplication storeApplication,
+            IProductValidator productValidator)
         {
             _storeApplication = storeApplication;
             _mapper = Mapping.GetMapper();
-            _productValidator = validatorResolver(ValidatorType.Product);
+            _productValidator = productValidator;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<ProductDto>> GetAllProducts()
         {
-            List<Product> products = _storeApplication.GetAllProducts();
+            var products = _storeApplication.GetAllProducts();
             return products.Select(p => _mapper.Map<ProductDto>(p)).ToList();
         }
 
@@ -38,15 +38,22 @@ namespace MyStore.Web.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<List<ProductDto>> AddProductRange([FromBody] List<ProductDto> products)
         {
-            ValidationModel validationResult = _productValidator.ValidateCreationRange(products);
-            if (validationResult.Status == ValidationStatus.Valid)
+            List<ProductModel> models = products.Select(p => _mapper.Map<ProductModel>(p)).ToList();
+            IReadOnlyList<ValidationResult> validationResults = _productValidator.ValidateRange(models);
+            if(HasInvalidItems(validationResults))
+            {
+                var validationData = validationResults.Select(r => _mapper.Map<ValidationResultDto>(r)).ToList();
+                return BadRequest(validationData);
+            }
+            else
             {
                 List<Product> newProducts = products.Select(p => _mapper.Map<Product>(p)).ToList();
                 List<Product> createdProducts = _storeApplication.AddProductRange(newProducts);
                 return createdProducts.Select(p => _mapper.Map<ProductDto>(p)).ToList();
             }
-            ValidationDto validationData = _mapper.Map<ValidationDto>(validationResult);
-            return BadRequest(validationData);
         }
+
+        private bool HasInvalidItems(IReadOnlyList<ValidationResult> validationResults)
+            => validationResults.Any(result => !result.IsValid);
     }
 }

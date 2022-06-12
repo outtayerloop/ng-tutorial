@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using MyStore.Core.Domain.Service.Extensions.Common;
 
 namespace MyStore.Core.Domain.Service.Extensions.Test.Unit
 {

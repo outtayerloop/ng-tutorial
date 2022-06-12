@@ -38,19 +38,21 @@ export class ProductUploadComponent implements OnInit, OnDestroy {
     const uploadedFile: File = files[0];
     const reader = new FileReader();
     reader.readAsBinaryString(uploadedFile);
-    reader.onload = _ => {
-      const json = this.fileService.xlsxToJson<Product>(reader);
-      const products: Product[] = Array.from(json).map(product => new Product(product));
-      const validation = this.validationService.validateProductRangeCreation(products);
-      if(validation.status === ValidationStatus.Valid)
-        this.productService.addProductRange(products);
-      else
-        alert(`Status : ${validation.status}. Message : ${validation.message}`);
-    }
+    reader.onload = _ => this.onLoadedProductsReader(reader);
   }
 
-  onNewlyAddedProducts(products: Product[]): void {
-    products = products.filter(product => this.currentProducts.includes(product));
+  private onLoadedProductsReader(reader: FileReader): void {
+    const json = this.fileService.xlsxToJson<Product>(reader);
+    const products: Product[] = Array.from(json).map(product => new Product(product));
+    const validation = this.validationService.validateProductRangeCreation(products);
+    if(validation.status === ValidationStatus.Valid)
+      this.productService.addProductRange(products);
+    else
+      alert(`Status : ${validation.status}. Message : ${validation.message}`);
+  }
+
+  private onNewlyAddedProducts(products: Product[]): void {
+    products = products.filter(product => !this.currentProducts.includes(product));
     if(products.length > 0 ) 
       this.onCreatedProducts.emit(products)
   }

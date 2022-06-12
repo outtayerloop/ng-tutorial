@@ -18,7 +18,7 @@ namespace MyStore.Core.Repository.Test.Unit
         private readonly IProductRepository _productRepository;
 
         public ProductTests(ITestOutputHelper testOutputHelper, RepositoryTestsFixture fixture) : base(testOutputHelper, fixture)
-            => _productRepository = fixture.GetService<IProductRepository>(testOutputHelper);
+            => _productRepository = fixture.GetService<IProductRepository>(testOutputHelper)!;
 
         [Fact, TestOrder(1)]
         public void WhenZeroProduct_DoesNotReturnNull()
