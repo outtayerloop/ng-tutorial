@@ -7,17 +7,17 @@ namespace MyStore.Core.Domain.Service.Validation.Rules
         /// <summary>
         /// Minimum valid price for a product.
         /// </summary>
-        private static readonly decimal _minPrice = 1M;
+        public static readonly decimal _minPrice = 1M;
 
         /// <summary>
         /// Maximum valid price for a product.
         /// </summary>
-        private static readonly decimal _maxPrice = 100_000M;
+        public static readonly decimal _maxPrice = 100_000M;
 
         public RuleResult Validate(double? price)
         {
             if (!price.HasValue)
-                return new RuleResult(false, ValidationStatus.Null, "The provided price was null.");
+                return new RuleResult(false, ValidationStatus.FailedPriceRule, "The provided price was null.");
             else if ((decimal)price.Value < _minPrice)
                 return new RuleResult(false, ValidationStatus.FailedPriceRule, $"The provided price value ({price}) cannot be under {_minPrice}.");
             else if ((decimal)price.Value > _maxPrice)

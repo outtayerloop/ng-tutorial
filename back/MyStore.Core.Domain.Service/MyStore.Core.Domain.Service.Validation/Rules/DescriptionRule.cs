@@ -4,7 +4,7 @@ namespace MyStore.Core.Domain.Service.Validation.Rules
 {
     public class DescriptionRule : ITextRule
     {
-        private static readonly int _maxDescriptionLength = 128;
+        public static readonly int _maxDescriptionLength = 128;
 
         public RuleResult Validate(string? description)
         {
