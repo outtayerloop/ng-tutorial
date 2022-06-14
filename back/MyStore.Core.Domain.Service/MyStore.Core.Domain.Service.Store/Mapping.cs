@@ -5,7 +5,7 @@ namespace MyStore.Core.Domain.Service.Store
 {
     public static class Mapping
     {
-        private static IMapper _mapper;
+        private static IMapper? _mapper;
 
         public static IMapper GetMapper()
         {

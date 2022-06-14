@@ -6,11 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Microsoft.DependencyInjection.Attributes;
 
 namespace MyStore.Core.Repository.Test.Unit
 {
-    [TestCaseOrderer("Xunit.Microsoft.DependencyInjection.TestsOrder.TestPriorityOrderer", "Xunit.Microsoft.DependencyInjection")]
     [CollectionDefinition("Products")]
     [Collection("Products")]
     public class ProductTests : BaseRepositoryTests
@@ -20,7 +18,7 @@ namespace MyStore.Core.Repository.Test.Unit
         public ProductTests(ITestOutputHelper testOutputHelper, RepositoryTestsFixture fixture) : base(testOutputHelper, fixture)
             => _productRepository = fixture.GetService<IProductRepository>(testOutputHelper)!;
 
-        [Fact, TestOrder(1)]
+        [Fact]
         public void WhenZeroProduct_DoesNotReturnNull()
         {
             List<Product> actualProducts = _productRepository.GetAll();
@@ -28,7 +26,7 @@ namespace MyStore.Core.Repository.Test.Unit
             Assert.NotNull(actualProducts);
         }
 
-        [Fact, TestOrder(2)]
+        [Fact]
         public void WhenZeroProduct_ReturnsEmpty()
         {
             List<Product> actualProducts = _productRepository.GetAll();
@@ -36,7 +34,7 @@ namespace MyStore.Core.Repository.Test.Unit
             Assert.Empty(actualProducts);
         }
 
-        [Fact, TestOrder(3)]
+        [Fact]
         public async Task WhenAtLeastOneProduct_CanGetAllProducts()
         {
             var expectedProducts = GetProductList();
@@ -48,7 +46,7 @@ namespace MyStore.Core.Repository.Test.Unit
             Assert.True(expectedProducts.SequenceEqual(actualProducts));
         }
 
-        /*[Fact, TestOrder(4)]
+        [Fact]
         public void WhenZeroProduct_DoesNotAddAnyProduct()
         {
             var emptyProductList = new List<Product>();
@@ -57,9 +55,9 @@ namespace MyStore.Core.Repository.Test.Unit
             DbSet<Product> actualProducts = _context.Products;
 
             Assert.Empty(actualProducts);
-        }*/
+        }
 
-        [Fact, TestOrder(5)]
+        [Fact]
         public void WhenAtLeastOneProduct_InsertsNewLinesInDatabase()
         {
             List<Product> products = GetProductList();
@@ -71,7 +69,7 @@ namespace MyStore.Core.Repository.Test.Unit
             Assert.Equal(actualLineCount, expectedLineCount);
         }
 
-        [Fact, TestOrder(6)]
+        [Fact]
         public void WhenAtLeastOneProduct_SetsIdForEachNewProduct()
         {
             List<Product> products = GetProductList();
@@ -83,7 +81,7 @@ namespace MyStore.Core.Repository.Test.Unit
             Assert.True(haveAllBeenIdentified);
         }
 
-        /*[Fact, TestOrder(7)]
+        [Fact]
         public void WhenAtLeastOneProduct_AddsInputProducts()
         {
             List<Product> expectedProducts = GetProductList();
@@ -94,7 +92,7 @@ namespace MyStore.Core.Repository.Test.Unit
                 expectedProducts[i].Id = actualProducts[i].Id;
 
             Assert.True(actualProducts.SequenceEqual(expectedProducts));
-        }*/
+        }
 
         private List<Product> GetProductList()
         {

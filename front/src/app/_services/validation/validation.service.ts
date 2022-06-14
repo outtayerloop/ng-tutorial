@@ -35,7 +35,6 @@ export class ValidationService {
           productValidation = this.validateSingle(product);
           validationResults.push(productValidation);
       });
-      console.log(validationResults);
       return validationResults;
     }
   }

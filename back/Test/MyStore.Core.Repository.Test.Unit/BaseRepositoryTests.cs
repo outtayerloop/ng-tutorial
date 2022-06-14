@@ -3,7 +3,6 @@ using Xunit;
 using Xunit.Abstractions;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 
-[assembly: TestCollectionOrderer("MyStore.Core.Repository.Test.Unit.TestsOrderer", "UnitTestsOrderer")]
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 namespace MyStore.Core.Repository.Test.Unit
@@ -13,6 +12,9 @@ namespace MyStore.Core.Repository.Test.Unit
         protected readonly MyStoreDbContext _context;
 
         protected BaseRepositoryTests(ITestOutputHelper testOutputHelper, RepositoryTestsFixture fixture) : base(testOutputHelper, fixture)
-            => _context = ContextManager.GetContext();
+        {
+            _context = ContextManager.GetContext();
+            ContextManager.GetContext().ClearAll();
+        }
     }
 }
