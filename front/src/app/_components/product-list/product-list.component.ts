@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ValidationResult } from 'src/app/_models/validation-result';
 
 import { Product } from '../../_models/product';
 import { ProductService } from '../../_services/product.service';
@@ -10,8 +11,9 @@ import { ProductService } from '../../_services/product.service';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  products!: Product[];
+  products !: Product[];
   private retrievedProductsSubscription !: Subscription;
+  validationResults !: ValidationResult[];
 
   constructor(private productService: ProductService) {}
 
@@ -33,6 +35,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   onCreatedProducts(products: Product[]): void {
     this.products = this.products.concat(products);
+  }
+
+  onValidationErrors(validationResults: ValidationResult[]): void {
+    this.validationResults = validationResults.filter(r => !r.isValid());
   }
 }
 

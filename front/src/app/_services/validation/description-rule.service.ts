@@ -9,7 +9,7 @@ import { ITextRule } from './text-rule.service';
 })
 export class DescriptionRule implements ITextRule {
 
-  private static readonly _maxDescriptionLength : number = 128;
+  private static readonly maxDescriptionLength : number = 128;
 
   public validate(description : string | null) : RuleResult
   {
@@ -17,8 +17,8 @@ export class DescriptionRule implements ITextRule {
         return new RuleResult(true, ValidationStatus.Ok, `Ok. Provided description was null or empty.`);
     if (description != null && description.trim() == "")
         return new RuleResult(false, ValidationStatus.FailedDescriptionRule, `The provided description (${description}) only consisted of white-space characters.`);
-    else if (description!.length >= DescriptionRule._maxDescriptionLength)
-        return new RuleResult(false, ValidationStatus.FailedDescriptionRule, `The provided description (${description}) was too big (max ${DescriptionRule._maxDescriptionLength} characters).`);
+    else if (description!.length >= DescriptionRule.maxDescriptionLength)
+        return new RuleResult(false, ValidationStatus.FailedDescriptionRule, `The provided description (${description}) was too big (max ${DescriptionRule.maxDescriptionLength} characters).`);
     else
         return new RuleResult(true, ValidationStatus.Ok, `Ok. Provided description = ${description}.`);
   }

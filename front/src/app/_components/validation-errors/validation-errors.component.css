@@ -1,0 +1,12 @@
+#validation-error-container{
+    background-color: rgb(255,240,240);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(255,214,214);
+    border-radius: 2px;
+    padding: 0px 10px;
+}
+
+#validation-errors-title{
+    color: rgb(255, 0, 0);
+}

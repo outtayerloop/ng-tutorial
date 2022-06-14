@@ -24,7 +24,6 @@ export class ValidationService {
    */
   public validateProductRange(products : (Product | null)[] | null) : ValidationResult[]
   {
-    products = [null, null, null];
     if (products === null)
       return this.getNullProductRangeResult();
     else
@@ -36,6 +35,7 @@ export class ValidationService {
           productValidation = this.validateSingle(product);
           validationResults.push(productValidation);
       });
+      console.log(validationResults);
       return validationResults;
     }
   }
@@ -55,7 +55,7 @@ export class ValidationService {
     if (product === null)
         productValidation.ruleResults.push(new RuleResult(false, ValidationStatus.Null, "The provided product was null."));
     else
-        productValidation.ruleResults.concat(this.getRuleResults(product));
+    productValidation.ruleResults = productValidation.ruleResults.concat(this.getRuleResults(product));
     return productValidation;
   }
 
