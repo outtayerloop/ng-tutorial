@@ -5,7 +5,7 @@ import { Product } from 'src/app/_models/product';
 import { ValidationStatus } from 'src/app/_models/validation-status';
 import { FileService } from 'src/app/_services/file.service';
 import { ProductService } from 'src/app/_services/product.service';
-import { ValidationService } from 'src/app/_services/validation.service';
+import { ValidationService } from 'src/app/_services/validation/validation.service';
 
 @Component({
   selector: 'app-product-upload',
@@ -44,11 +44,11 @@ export class ProductUploadComponent implements OnInit, OnDestroy {
   private onLoadedProductsReader(reader: FileReader): void {
     const json = this.fileService.xlsxToJson<Product>(reader);
     const products: Product[] = Array.from(json).map(product => new Product(product));
-    const validation = this.validationService.validateProductRangeCreation(products);
-    if(validation.status === ValidationStatus.Valid)
-      this.productService.addProductRange(products);
+    const validationResults = this.validationService.validateProductRange(products);
+    if(validationResults.some(r => !r.isValid()))
+      console.log(validationResults);
     else
-      alert(`Status : ${validation.status}. Message : ${validation.message}`);
+      this.productService.addProductRange(products);
   }
 
   private onNewlyAddedProducts(products: Product[]): void {

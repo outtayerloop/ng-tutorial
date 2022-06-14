@@ -12,6 +12,7 @@ import { ProductDetailsComponent } from './_components/product-details/product-d
 import { CartComponent } from './_components/cart/cart.component';
 import { ShippingComponent } from './_components/shipping/shipping.component';
 import { ProductUploadComponent } from './_components/product-upload/product-upload.component';
+import { NameRule } from './_services/validation/name-rule.service';
 
 @NgModule({
   imports: [
@@ -47,7 +48,7 @@ import { ProductUploadComponent } from './_components/product-upload/product-upl
     ShippingComponent,
     ProductUploadComponent,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
 
