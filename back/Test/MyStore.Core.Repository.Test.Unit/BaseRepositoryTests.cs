@@ -12,9 +12,6 @@ namespace MyStore.Core.Repository.Test.Unit
         protected readonly MyStoreDbContext _context;
 
         protected BaseRepositoryTests(ITestOutputHelper testOutputHelper, RepositoryTestsFixture fixture) : base(testOutputHelper, fixture)
-        {
-            _context = ContextManager.GetContext();
-            ContextManager.GetContext().ClearAll();
-        }
+            => _context = ContextManager.GetContext();
     }
 }

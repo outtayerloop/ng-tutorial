@@ -28,11 +28,5 @@ namespace MyStore.Core.Repository.Test.Unit
         {
             yield return new() { Filename = null, IsOptional = true };
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            ContextManager.GetContext().ClearAll();
-            base.Dispose(disposing);
-        }
     }
 }

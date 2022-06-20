@@ -41,11 +41,11 @@ namespace MyStore.Core.Repository.Test.Unit
             await _context.AddRangeAsync(expectedProducts);
             await _context.SaveChangesAsync();
 
-            List<Product> actualProducts = _productRepository.GetAll();
+            List<Product> actualProducts = _productRepository.GetAll().ToList();
 
             Assert.True(expectedProducts.SequenceEqual(actualProducts));
         }
-
+         
         [Fact]
         public void WhenZeroProduct_DoesNotAddAnyProduct()
         {
