@@ -2,9 +2,13 @@
   <h2>Products</h2>
   <app-product-upload 
     (onCreatedProducts)="onCreatedProducts($event)"
+    (onValidationErrors)="onValidationErrors($event)"
     [currentProducts]="products"
-    ></app-product-upload>
+  ></app-product-upload>
 </div>
+<app-validation-errors 
+  [errors]="validationResults"
+></app-validation-errors>
 
 <div *ngFor="let product of products">
   <h3>

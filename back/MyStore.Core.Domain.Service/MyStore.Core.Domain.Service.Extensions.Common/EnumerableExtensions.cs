@@ -1,4 +1,4 @@
-﻿namespace MyStore.Core.Domain.Service.Extensions
+﻿namespace MyStore.Core.Domain.Service.Extensions.Common
 {
     public static class EnumerableExtensions
     {

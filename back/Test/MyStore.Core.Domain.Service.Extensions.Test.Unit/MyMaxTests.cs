@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xunit;
+using MyStore.Core.Domain.Service.Extensions.Common;
 
 namespace MyStore.Core.Domain.Service.Extensions.Test.Unit
 {

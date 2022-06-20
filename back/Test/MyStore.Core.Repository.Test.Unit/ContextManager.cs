@@ -8,22 +8,17 @@ namespace MyStore.Core.Repository.Test.Unit
     {
         public static string ConnectionString { get; } = GetConnectionString();
 
-        private static MyStoreDbContext _context;
+        public static string InMemoryDatabase { get; } = "test";
 
         public static MyStoreDbContext GetContext()
         {
-            if (_context == null)
-                _context = CreateContext();
-            return _context;
-        }
-
-        private static MyStoreDbContext CreateContext()
-        {
-            var options = new DbContextOptionsBuilder<MyStoreDbContext>().UseNpgsql(ConnectionString).Options;
-            return new MyStoreDbContext(options);
+            var options = new DbContextOptionsBuilder<MyStoreDbContext>().UseInMemoryDatabase(InMemoryDatabase).Options;
+            var context = new MyStoreDbContext(options);
+            context.ClearAll();
+            return context;
         }
 
         private static string GetConnectionString()
-            => Environment.GetEnvironmentVariable("MY_STORE_TEST_CONNECTION_STRING");
+            => Environment.GetEnvironmentVariable("MY_STORE_TEST_CONNECTION_STRING")!;
     }
 }

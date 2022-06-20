@@ -1,15 +1,14 @@
 ﻿using MyStore.Core.Data.Entity.Common;
 using MyStore.Core.Data.Entity.Relation;
+using MyStore.Core.Repository.Shippings;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Microsoft.DependencyInjection.Attributes;
 
 namespace MyStore.Core.Repository.Test.Unit
 {
-    [TestCaseOrderer("Xunit.Microsoft.DependencyInjection.TestsOrder.TestPriorityOrderer", "Xunit.Microsoft.DependencyInjection")]
     [CollectionDefinition("Shippings")]
     [Collection("Shippings")]
     public class ShippingTests : BaseRepositoryTests
@@ -17,9 +16,9 @@ namespace MyStore.Core.Repository.Test.Unit
         private readonly IStoreRepository<Shipping> _shippingRepository;
 
         public ShippingTests(ITestOutputHelper testOutputHelper, RepositoryTestsFixture fixture) : base(testOutputHelper, fixture)
-            => _shippingRepository = fixture.GetService<IStoreRepository<Shipping>>(testOutputHelper);
+            => _shippingRepository = fixture.GetService<IShippingRepository>(testOutputHelper)!;
 
-        [Fact, TestOrder(1)]
+        [Fact]
         public void WhenZeroShipping_DoesNotReturnNull()
         {
             List<Shipping> actualShippings = _shippingRepository.GetAll();
@@ -27,7 +26,7 @@ namespace MyStore.Core.Repository.Test.Unit
             Assert.NotNull(actualShippings);
         }
 
-        [Fact, TestOrder(2)]
+        [Fact]
         public void WhenZeroShipping_ReturnsEmpty()
         {
             List<Shipping> actualShippings = _shippingRepository.GetAll();
@@ -35,14 +34,14 @@ namespace MyStore.Core.Repository.Test.Unit
             Assert.Empty(actualShippings);
         }
 
-        [Fact, TestOrder(3)]
+        [Fact]
         public async Task WhenAtLeastOneShipping_CanGetAllShippings()
         {
             var expectedShippings = new List<Shipping>
             {
                 new Shipping { Package = ShippingPackage.OverNight, Price = 25.99M },
                 new Shipping { Package = ShippingPackage.TwoDay, Price = 9.99M },
-                new Shipping { Package = ShippingPackage.Postal, Price = 2.99M },
+                new Shipping { Package = ShippingPackage.Postal, Price = 2.99M }
             };
             await _context.AddRangeAsync(expectedShippings);
             await _context.SaveChangesAsync();

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ValidationResult } from 'src/app/_models/validation-result';
 
 import { Product } from '../../_models/product';
 import { ProductService } from '../../_services/product.service';
@@ -8,13 +10,19 @@ import { ProductService } from '../../_services/product.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent implements OnInit {
-  products!: Product[];
+export class ProductListComponent implements OnInit, OnDestroy {
+  products !: Product[];
+  private retrievedProductsSubscription !: Subscription;
+  validationResults !: ValidationResult[];
 
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe(res => this.products = res);
+    this.retrievedProductsSubscription = this.productService.getAllProducts().subscribe(res => this.products = res);
+  }
+
+  ngOnDestroy(): void {
+    this.retrievedProductsSubscription.unsubscribe();
   }
 
   share() {
@@ -23,10 +31,14 @@ export class ProductListComponent implements OnInit {
 
   onNotify = () => {
     window.alert('You will be notified when the product goes on sale');
-  };
+  }
 
   onCreatedProducts(products: Product[]): void {
     this.products = this.products.concat(products);
+  }
+
+  onValidationErrors(validationResults: ValidationResult[]): void {
+    this.validationResults = validationResults.filter(r => !r.isValid());
   }
 }
 

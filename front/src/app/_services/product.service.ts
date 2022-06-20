@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Product } from '../_models/product';
-import { BaseService } from './base.service';
+import { BaseService as BaseHttpService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService extends BaseService {
+export class ProductService extends BaseHttpService {
   private readonly createdProductsSubject = new BehaviorSubject<Product[]>([]);
   readonly createdProducts = this.createdProductsSubject.asObservable();
 

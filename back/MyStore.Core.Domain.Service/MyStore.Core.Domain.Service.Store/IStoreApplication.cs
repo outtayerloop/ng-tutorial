@@ -1,12 +1,13 @@
 ﻿using MyStore.Core.Data.Entity.Relation;
+using MyStore.Core.Domain.Model.Entity;
 
 namespace MyStore.Core.Domain.Service.Store
 {
     public interface IStoreApplication
     {
-        List<Product> GetAllProducts();
+        List<ProductModel> GetAllProducts();
 
-        List<Shipping> GetAllShippings();
+        List<ShippingModel> GetAllShippings();
 
         List<Product> AddProductRange(List<Product> products);
     }

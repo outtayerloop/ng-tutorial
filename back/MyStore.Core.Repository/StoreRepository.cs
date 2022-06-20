@@ -16,6 +16,10 @@ namespace MyStore.Core.Repository
         }
 
         public List<TRelation> GetAll()
-            => _models.ToList();
+        {
+            return _models.ToList()
+                          .OrderBy(x => x.Id)
+                          .ToList();
+        }
     }
 }

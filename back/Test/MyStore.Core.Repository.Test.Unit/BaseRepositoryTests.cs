@@ -3,7 +3,6 @@ using Xunit;
 using Xunit.Abstractions;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 
-[assembly: TestCollectionOrderer("MyStore.Core.Repository.Test.Unit.TestsOrderer", "UnitTestsOrderer")]
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 namespace MyStore.Core.Repository.Test.Unit

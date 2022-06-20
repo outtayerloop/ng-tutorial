@@ -8,5 +8,7 @@ namespace MyStore.Core.Data.Entity.Dto
 
     public sealed record ShippingDto(uint Id, ShippingPackage Package, decimal Price) : BaseDto(Id);
 
-    public sealed record ValidationDto(string Status, string Message);
+    public sealed record RuleResultDto(bool IsValid, string Status, string Message);
+
+    public sealed record ValidationResultDto(bool IsValid, List<RuleResultDto> RuleResults);
 }
