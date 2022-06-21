@@ -19,7 +19,7 @@ namespace MyStore.Core.Domain.Service.Extensions.Mapping
             
             cfg.CreateMap<ProductDto, ProductModel>()
                 .ConstructUsing(dto =>
-                    new ProductModel(dto.Id, dto.Name, dto.Price, dto.Description, DateTime.ParseExact(dto.Date, _inputDateTimeFormat, null), dto.WasShipped))
+                    new ProductModel(dto.Id, dto.Name, dto.Price, dto.Description, DateTime.ParseExact(dto.ShippingDate, _inputDateTimeFormat, null), dto.Shipped))
                 .ReverseMap()
                 .ConstructUsing(model =>
                     new ProductDto(model.Id, model.Name, model.Price, model.Description, model.ShippingDate.ToString(_outputDateTimeFormat), model.Shipped));

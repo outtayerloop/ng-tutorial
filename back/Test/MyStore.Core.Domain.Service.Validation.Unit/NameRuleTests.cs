@@ -17,6 +17,8 @@ namespace MyStore.Core.Domain.Service.Validation.Unit
 
         private static readonly DateTime _stubDate = DateTime.Now;
 
+        private static readonly bool _stubShippingState = false;
+
         public NameRuleTests()
             => _nameRule = new NameRule();
 
@@ -141,6 +143,6 @@ namespace MyStore.Core.Domain.Service.Validation.Unit
         }
 
         private ProductModel GetStubProduct(string? name)
-            => new(_stubId, name!, _stubPrice, _stubDescription, _stubDate);
+            => new(_stubId, name!, _stubPrice, _stubDescription, _stubDate, _stubShippingState);
     }
 }
