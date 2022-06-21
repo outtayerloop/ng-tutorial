@@ -12,15 +12,15 @@ namespace MyStore.Web.Controllers
     [Route("[controller]")]
     public class ProductsController : Controller
     {
-        private readonly IStoreApplication _storeApplication;
+        private readonly IShoppingService _shoppingService;
         private readonly IMapper _mapper;
         private readonly IProductValidator _productValidator;
 
         public ProductsController(
-            IStoreApplication storeApplication,
+            IShoppingService storeApplication,
             IProductValidator productValidator)
         {
-            _storeApplication = storeApplication;
+            _shoppingService = storeApplication;
             _mapper = Mapping.GetMapper();
             _productValidator = productValidator;
         }
@@ -29,7 +29,7 @@ namespace MyStore.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<ProductDto>> GetAllProducts()
         {
-            var products = _storeApplication.GetAllProducts();
+            var products = _shoppingService.GetAllProducts();
             return products.Select(p => _mapper.Map<ProductDto>(p)).ToList();
         }
 
@@ -38,8 +38,8 @@ namespace MyStore.Web.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<List<ProductDto>> AddProductRange([FromBody] List<ProductDto> products)
         {
-            List<ProductModel> models = products.Select(p => _mapper.Map<ProductModel>(p)).ToList();
-            IReadOnlyCollection<ValidationResult> validationResults = _productValidator.ValidateRange(models);
+            List<ProductModel> newProducts = products.Select(p => _mapper.Map<ProductModel>(p)).ToList();
+            IReadOnlyCollection<ValidationResult> validationResults = _productValidator.ValidateRange(newProducts);
             if(HasInvalidItems(validationResults))
             {
                 var validationData = validationResults.Select(r => _mapper.Map<ValidationResultDto>(r)).ToList();
@@ -47,8 +47,7 @@ namespace MyStore.Web.Controllers
             }
             else
             {
-                List<Product> newProducts = products.Select(p => _mapper.Map<Product>(p)).ToList();
-                List<Product> createdProducts = _storeApplication.AddProductRange(newProducts);
+                List<ProductModel> createdProducts = _shoppingService.AddProductRange(newProducts);
                 return createdProducts.Select(p => _mapper.Map<ProductDto>(p)).ToList();
             }
         }

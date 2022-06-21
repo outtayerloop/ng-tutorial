@@ -20,6 +20,7 @@
     </a>
   </h3>
   <p *ngIf="product.description">Description : {{ product.description }}</p>
+  <p>Date : {{ product.date }}</p>
   <button type="button" (click)="share()">Share</button>
   <app-product-alerts [product]="product" (notifyCustomEvent)="onNotify()"></app-product-alerts>
 </div>

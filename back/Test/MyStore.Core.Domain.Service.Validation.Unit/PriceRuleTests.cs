@@ -1,5 +1,6 @@
 ﻿using MyStore.Core.Domain.Model.Entity;
 using MyStore.Core.Domain.Service.Validation.Rules;
+using System;
 using Xunit;
 
 namespace MyStore.Core.Domain.Service.Validation.Unit
@@ -13,6 +14,8 @@ namespace MyStore.Core.Domain.Service.Validation.Unit
         private static readonly string _stubName = "stub";
 
         private static readonly string? _stubDescription = "stub";
+
+        private static readonly DateTime _stubDate = DateTime.Now;
 
         public PriceRuleTests()
             => _priceRule = new PriceRule();
@@ -90,6 +93,6 @@ namespace MyStore.Core.Domain.Service.Validation.Unit
         }
 
         private ProductModel GetStubProduct(decimal price)
-            => new(_stubId, _stubName, price, _stubDescription);
+            => new(_stubId, _stubName, price, _stubDescription, _stubDate);
     }
 }

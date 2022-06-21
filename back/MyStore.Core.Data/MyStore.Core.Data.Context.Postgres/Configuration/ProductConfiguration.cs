@@ -61,6 +61,12 @@ namespace MyStore.Core.Data.Context.Postgres
                     $"\"PRICE\" >= {_minPrice} AND \"PRICE\" <= {_maxPrice}",
                     c => c.HasName("CHK_PRODUCT_PRICE")
                 );
+
+            _modelBuilder.Entity<Product>()
+                .Property(p => p.Date)
+                .HasColumnName("DATE")
+                .HasColumnType("TIMESTAMP")
+                .IsRequired(true);
         }
     }
 }

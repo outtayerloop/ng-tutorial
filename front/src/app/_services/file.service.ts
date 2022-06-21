@@ -22,8 +22,8 @@ export class FileService {
       const workBook = XLSX.read(data, { type: 'binary' });
       const jsonData = workBook.SheetNames.reduce((_, name) => {
         const sheet = workBook.Sheets[name];
-        return XLSX.utils.sheet_to_json<TModel>(sheet);
-      }, {});
+        return XLSX.utils.sheet_to_json<TModel>(sheet, { raw: false });
+      }, { });
       return jsonData;
     }
     return null;
