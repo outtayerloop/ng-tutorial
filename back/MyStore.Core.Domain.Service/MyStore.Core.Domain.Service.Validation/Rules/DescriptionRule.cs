@@ -2,11 +2,14 @@
 
 namespace MyStore.Core.Domain.Service.Validation.Rules
 {
-    public class DescriptionRule : ITextRule
+    public class DescriptionRule : IRule
     {
         public static readonly int _maxDescriptionLength = 128;
 
-        public RuleResult Validate(string? description)
+        public RuleResult Validate(ProductModel product)
+            => ValidateDescription(product.Description);
+
+        private RuleResult ValidateDescription(string? description)
         {
             if (string.IsNullOrEmpty(description))
                 return new RuleResult(true, ValidationStatus.Ok, $"Ok. Provided description was null or empty.");

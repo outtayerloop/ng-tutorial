@@ -27,10 +27,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IStoreRepository<>), typeof(StoreRepository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
-builder.Services.AddScoped<IStoreApplication, StoreApplication>();
+builder.Services.AddScoped<IShoppingService, ShoppingService>();
 builder.Services.AddScoped<NameRule>();
 builder.Services.AddScoped<DescriptionRule>();
 builder.Services.AddScoped<PriceRule>();
+builder.Services.AddScoped<DateRule>();
 builder.Services.AddScoped<IProductValidator, ProductValidator>();
 
 // Configure the database context

@@ -2,8 +2,8 @@
 
 namespace MyStore.Core.Domain.Service.Validation.Rules
 {
-    internal interface INumberRule
+    internal interface IRule
     {
-        RuleResult Validate(double? input);
+        RuleResult Validate(ProductModel product);
     }
 }

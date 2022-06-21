@@ -11,6 +11,6 @@ namespace MyStore.Core.Domain.Service.Validation
         /// <typeparam name="TModel">Type of the model to use for creation</typeparam>
         /// <param name="range">List of DTOs to use for creation</param>
         /// <returns></returns>
-        IReadOnlyList<ValidationResult> ValidateRange(List<TModel> range);
+        IReadOnlyCollection<ValidationResult> ValidateRange(List<TModel> range);
     }
 }

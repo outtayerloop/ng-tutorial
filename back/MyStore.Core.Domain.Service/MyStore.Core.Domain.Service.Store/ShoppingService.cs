@@ -6,13 +6,13 @@ using MyStore.Core.Repository.Shippings;
 
 namespace MyStore.Core.Domain.Service.Store
 {
-    public class StoreApplication : IStoreApplication
+    public class ShoppingService : IShoppingService
     {
         private readonly IProductRepository _productRepository;
         private readonly IShippingRepository _shippingRepository;
         private readonly IMapper _mapper;
  
-        public StoreApplication(
+        public ShoppingService(
             IProductRepository productRepository,
             IShippingRepository shippingRepository)
         {
@@ -33,7 +33,11 @@ namespace MyStore.Core.Domain.Service.Store
             return shippings.Select(s => _mapper.Map<ShippingModel>(s)).ToList();
         }
 
-        public List<Product> AddProductRange(List<Product> products)
-            => _productRepository.AddRange(products);
+        public List<ProductModel> AddProductRange(List<ProductModel> products)
+        {
+            List<Product> newProducts = products.Select(p => _mapper.Map<Product>(p)).ToList();
+            List<Product> createdProducts = _productRepository.AddRange(newProducts);
+            return createdProducts.Select(p => _mapper.Map<ProductModel>(p)).ToList();
+        }
     }
 }

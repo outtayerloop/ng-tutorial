@@ -1,6 +1,6 @@
-INSERT INTO "PRODUCT" ("NAME", "DESCRIPTION", "PRICE") VALUES ('Phone XL', 'A large phone with one of the best screens', 799);
-INSERT INTO "PRODUCT" ("NAME", "DESCRIPTION", "PRICE") VALUES ('Phone Mini', 'A great phone with one of the best cameras', 699);
-INSERT INTO "PRODUCT" ("NAME", "PRICE") VALUES ('Phone Standard', 299);
+INSERT INTO "PRODUCT" ("NAME", "DESCRIPTION", "PRICE", "DATE", "SHIPPED") VALUES ('Phone XL', 'A large phone with one of the best screens', 799, '2022-01-12 19:10', FALSE);
+INSERT INTO "PRODUCT" ("NAME", "DESCRIPTION", "PRICE", "DATE", "SHIPPED") VALUES ('Phone Mini', 'A great phone with one of the best cameras', 699, '2022-06-10 15:30', FALSE);
+INSERT INTO "PRODUCT" ("NAME", "PRICE", "DATE", "SHIPPED") VALUES ('Phone Standard', 299, '2022-05-11 11:00', FALSE);
 
 INSERT INTO "SHIPPING" ("PRICE", "PACKAGE") VALUES ('25.99', 0);
 INSERT INTO "SHIPPING" ("PRICE", "PACKAGE") VALUES ('9.99', 1);

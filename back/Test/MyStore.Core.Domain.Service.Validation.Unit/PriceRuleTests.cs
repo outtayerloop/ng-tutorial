@@ -1,5 +1,6 @@
 ﻿using MyStore.Core.Domain.Model.Entity;
 using MyStore.Core.Domain.Service.Validation.Rules;
+using System;
 using Xunit;
 
 namespace MyStore.Core.Domain.Service.Validation.Unit
@@ -8,38 +9,27 @@ namespace MyStore.Core.Domain.Service.Validation.Unit
     {
         private readonly PriceRule _priceRule;
 
+        private static readonly uint _stubId = 1;
+
+        private static readonly string _stubName = "stub";
+
+        private static readonly string? _stubDescription = "stub";
+
+        private static readonly DateTime _stubDate = DateTime.Now;
+
+        private static readonly bool _stubShippingState = false;
+
         public PriceRuleTests()
             => _priceRule = new PriceRule();
-
-        [Fact]
-        public void NullPrice_ReturnsFailedPriceRuleStatus()
-        {
-            ValidationStatus expectedStatus = ValidationStatus.FailedPriceRule;
-            double? nullPrice = null;
-
-            ValidationStatus actualStatus = _priceRule.Validate(nullPrice).Status;
-
-            Assert.Equal(actualStatus, expectedStatus);
-        }
-
-        [Fact]
-        public void NullPrice_ReturnsInvalidResult()
-        {
-            bool expectedValidity = false;
-            double? nullPrice = null;
-
-            bool actualValidity = _priceRule.Validate(nullPrice).IsValid;
-
-            Assert.Equal(actualValidity, expectedValidity);
-        }
 
         [Fact]
         public void TooSmallPrice_ReturnsFailedPriceRuleStatus()
         {
             ValidationStatus expectedStatus = ValidationStatus.FailedPriceRule;
-            double tooSmallPrice = (double)PriceRule._minPrice - 1;
+            decimal tooSmallPrice = PriceRule._minPrice - 1;
+            ProductModel stubProduct = GetStubProduct(tooSmallPrice);
 
-            ValidationStatus actualStatus = _priceRule.Validate(tooSmallPrice).Status;
+            ValidationStatus actualStatus = _priceRule.Validate(stubProduct).Status;
 
             Assert.Equal(actualStatus, expectedStatus);
         }
@@ -48,9 +38,10 @@ namespace MyStore.Core.Domain.Service.Validation.Unit
         public void TooSmallPrice_ReturnsInvalidResult()
         {
             bool expectedValidity = false;
-            double tooSmallPrice = (double)PriceRule._minPrice - 1;
+            decimal tooSmallPrice = PriceRule._minPrice - 1;
+            ProductModel stubProduct = GetStubProduct(tooSmallPrice);
 
-            bool actualValidity = _priceRule.Validate(tooSmallPrice).IsValid;
+            bool actualValidity = _priceRule.Validate(stubProduct).IsValid;
 
             Assert.Equal(actualValidity, expectedValidity);
         }
@@ -59,9 +50,10 @@ namespace MyStore.Core.Domain.Service.Validation.Unit
         public void TooBigPrice_ReturnsFailedPriceRuleStatus()
         {
             ValidationStatus expectedStatus = ValidationStatus.FailedPriceRule;
-            double tooBigPrice = (double)PriceRule._maxPrice + 1;
+            decimal tooBigPrice = PriceRule._maxPrice + 1;
+            ProductModel stubProduct = GetStubProduct(tooBigPrice);
 
-            ValidationStatus actualStatus = _priceRule.Validate(tooBigPrice).Status;
+            ValidationStatus actualStatus = _priceRule.Validate(stubProduct).Status;
 
             Assert.Equal(actualStatus, expectedStatus);
         }
@@ -70,9 +62,10 @@ namespace MyStore.Core.Domain.Service.Validation.Unit
         public void TooBigPrice_ReturnsInvalidResult()
         {
             bool expectedValidity = false;
-            double tooBigPrice = (double)PriceRule._maxPrice + 1;
+            decimal tooBigPrice = PriceRule._maxPrice + 1;
+            ProductModel stubProduct = GetStubProduct(tooBigPrice);
 
-            bool actualValidity = _priceRule.Validate(tooBigPrice).IsValid;
+            bool actualValidity = _priceRule.Validate(stubProduct).IsValid;
 
             Assert.Equal(actualValidity, expectedValidity);
         }
@@ -81,9 +74,10 @@ namespace MyStore.Core.Domain.Service.Validation.Unit
         public void ValidPrice_ReturnsOkStatus()
         {
             ValidationStatus expectedStatus = ValidationStatus.Ok;
-            double validPrice = (double)PriceRule._minPrice + 1;
+            decimal validPrice = PriceRule._minPrice + 1;
+            ProductModel stubProduct = GetStubProduct(validPrice);
 
-            ValidationStatus actualStatus = _priceRule.Validate(validPrice).Status;
+            ValidationStatus actualStatus = _priceRule.Validate(stubProduct).Status;
 
             Assert.Equal(actualStatus, expectedStatus);
         }
@@ -92,11 +86,15 @@ namespace MyStore.Core.Domain.Service.Validation.Unit
         public void ValidPrice_ReturnsValidResult()
         {
             bool expectedValidity = true;
-            double validPrice = (double)PriceRule._minPrice + 1;
+            decimal validPrice = PriceRule._minPrice + 1;
+            ProductModel stubProduct = GetStubProduct(validPrice);
 
-            bool actualValidity = _priceRule.Validate(validPrice).IsValid;
+            bool actualValidity = _priceRule.Validate(stubProduct).IsValid;
 
             Assert.Equal(actualValidity, expectedValidity);
         }
+
+        private ProductModel GetStubProduct(decimal price)
+            => new(_stubId, _stubName, price, _stubDescription, _stubDate, _stubShippingState);
     }
 }

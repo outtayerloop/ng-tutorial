@@ -9,12 +9,12 @@ namespace MyStore.Web.Controllers
     [Route("[controller]")]
     public class ShippingsController : Controller
     {
-        private readonly IStoreApplication _storeApplication;
+        private readonly IShoppingService _shoppingService;
         private readonly IMapper _mapper;
 
-        public ShippingsController(IStoreApplication storeApplication)
+        public ShippingsController(IShoppingService storeApplication)
         {
-            _storeApplication = storeApplication;
+            _shoppingService = storeApplication;
             _mapper = Mapping.GetMapper();
         }
 
@@ -22,7 +22,7 @@ namespace MyStore.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<ShippingDto>> GetAllShippings()
         {
-            var shippings = _storeApplication.GetAllShippings();
+            var shippings = _shoppingService.GetAllShippings();
             return shippings.Select(s => _mapper.Map<ShippingDto>(s)).ToList();
         }
     }

@@ -7,21 +7,27 @@ namespace MyStore.Core.Domain.Service.Extensions.Mapping
 {
     public static class MapperExtensions
     {
+        private static readonly string _inputDateTimeFormat = "yyyy/MM/dd HH:mm";
+
+        private static readonly string _outputDateTimeFormat = "dd/MM/yyyy HH:mm";
+
         public static void CreateProductMap(this IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<Product, ProductDto>()
                 .ConstructUsing(product =>
-                    new ProductDto(product.Id, product.Name, product.Price, product.Description))
-                .ReverseMap();
-
+                    new ProductDto(product.Id, product.Name, product.Price, product.Description, product.ShippingDate.ToString(_outputDateTimeFormat), product.Shipped));
+            
             cfg.CreateMap<ProductDto, ProductModel>()
-                .ConstructUsing(product =>
-                    new ProductModel(product.Id, product.Name, product.Price, product.Description))
-                .ReverseMap();
+                .ConstructUsing(dto =>
+                    new ProductModel(dto.Id, dto.Name, dto.Price, dto.Description, DateTime.ParseExact(dto.ShippingDate, _inputDateTimeFormat, null), dto.Shipped))
+                .ReverseMap()
+                .ConstructUsing(model =>
+                    new ProductDto(model.Id, model.Name, model.Price, model.Description, model.ShippingDate.ToString(_outputDateTimeFormat), model.Shipped));
 
             cfg.CreateMap<Product, ProductModel>()
                 .ConstructUsing(product =>
-                    new ProductModel(product.Id, product.Name, product.Price, product.Description));
+                    new ProductModel(product.Id, product.Name, product.Price, product.Description, product.ShippingDate, product.Shipped))
+                .ReverseMap();
         }
 
         public static void CreateShippingMap(this IMapperConfigurationExpression cfg)

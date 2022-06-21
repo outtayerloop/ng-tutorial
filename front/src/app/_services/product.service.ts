@@ -18,6 +18,7 @@ export class ProductService extends BaseHttpService {
 
   addProductRange(products: Product[]): void {
     if(products.length > 0){
+      console.log(products);
       this.http.post(`${this.apiUrl}/products`, products).subscribe({
         next: res => this.createdProductsSubject.next(<Product[]>res),
         error: (err: HttpErrorResponse) => {
