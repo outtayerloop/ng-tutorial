@@ -5,6 +5,7 @@ export class Product extends BaseModel {
   price: number;
   description: string;
   date: Date;
+  shipped: boolean;
 
   constructor(jsonData: any){
     super(jsonData);
@@ -12,6 +13,7 @@ export class Product extends BaseModel {
     this.price = jsonData.price;
     this.description = jsonData.description;
     this.date = jsonData.date;
+    this.shipped = jsonData.shipped || false;
   }
 }
 

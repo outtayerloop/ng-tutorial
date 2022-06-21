@@ -28,6 +28,11 @@
         /// <summary>
         /// The current input failed the price rule's validation.
         /// </summary>
-        FailedPriceRule = 4
+        FailedPriceRule = 4,
+
+        /// <summary>
+        /// The current input failed the date rule's validation.
+        /// </summary>
+        FailedDateRule = 4
     }
 }

@@ -8,7 +8,9 @@
 
         public string? Description { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime ShippingDate { get; set; }
+
+        public bool Shipped { get; set; }
 
         public override bool Equals(object? obj)
         {
@@ -17,7 +19,9 @@
             return product.Id == Id
                 && product.Name == Name 
                 && product.Price == Price
-                && product.Description == Description;
+                && product.Description == Description
+                && product.ShippingDate.CompareTo(ShippingDate) == 0
+                && product.Shipped == Shipped;
         }
     }
 }

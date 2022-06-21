@@ -63,9 +63,15 @@ namespace MyStore.Core.Data.Context.Postgres
                 );
 
             _modelBuilder.Entity<Product>()
-                .Property(p => p.Date)
+                .Property(p => p.ShippingDate)
                 .HasColumnName("DATE")
                 .HasColumnType("TIMESTAMP")
+                .IsRequired(true);
+
+            _modelBuilder.Entity<Product>()
+                .Property(p => p.Shipped)
+                .HasColumnName("SHIPPED")
+                .HasColumnType("BOOLEAN")
                 .IsRequired(true);
         }
     }

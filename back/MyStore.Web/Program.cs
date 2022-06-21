@@ -31,6 +31,7 @@ builder.Services.AddScoped<IShoppingService, ShoppingService>();
 builder.Services.AddScoped<NameRule>();
 builder.Services.AddScoped<DescriptionRule>();
 builder.Services.AddScoped<PriceRule>();
+builder.Services.AddScoped<DateRule>();
 builder.Services.AddScoped<IProductValidator, ProductValidator>();
 
 // Configure the database context

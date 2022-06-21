@@ -17,7 +17,11 @@ namespace MyStore.Core.Repository.Products
             products.RemoveAll(p => GetByName(p.Name) != null);
             if (products.Count > 0)
             {
-                products.ForEach(p => p.Id = 0);
+                products.ForEach(p =>
+                {
+                    p.Id = 0;
+                    p.Shipped = false;
+                });
                 _models.AddRange(products);
                 _context.SaveChanges();
             }

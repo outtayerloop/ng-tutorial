@@ -8,20 +8,24 @@
 
         public string? Description { get; }
 
-        public DateTime Date { get; }
+        public DateTime ShippingDate { get; }
+
+        public bool Shipped { get; }
 
         public ProductModel(
             uint id, 
             string name, 
             decimal price, 
             string? description, 
-            DateTime date
-        ) : base(id)
+            DateTime shippingDate,
+            bool shipped) 
+        : base(id)
         {
             Name = name;
             Price = price;
             Description = description;
-            Date = date;
+            ShippingDate = shippingDate;
+            Shipped = shipped;
         }
     }
 }

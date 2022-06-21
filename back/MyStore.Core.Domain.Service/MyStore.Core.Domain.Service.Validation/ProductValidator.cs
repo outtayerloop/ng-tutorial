@@ -11,11 +11,18 @@ namespace MyStore.Core.Domain.Service.Validation
 
         private readonly PriceRule _priceRule;
 
-        public ProductValidator(NameRule nameRule, DescriptionRule descriptionRule, PriceRule priceRule)
+        private readonly DateRule _dateRule;
+
+        public ProductValidator(
+            NameRule nameRule, 
+            DescriptionRule descriptionRule, 
+            PriceRule priceRule,
+            DateRule dateRule)
         {
             _nameRule = nameRule;
             _descriptionRule = descriptionRule;
             _priceRule = priceRule;
+            _dateRule = dateRule;
         }
 
         /// <summary>
@@ -65,6 +72,7 @@ namespace MyStore.Core.Domain.Service.Validation
             results.Add(_nameRule.Validate(product));
             results.Add(_descriptionRule.Validate(product));
             results.Add(_priceRule.Validate(product));
+            results.Add(_dateRule.Validate(product));
             return results;
         }
     }
