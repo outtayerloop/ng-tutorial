@@ -39,7 +39,7 @@ namespace MyStore.Web.Controllers
         public ActionResult<List<ProductDto>> AddProductRange([FromBody] List<ProductDto> products)
         {
             List<ProductModel> models = products.Select(p => _mapper.Map<ProductModel>(p)).ToList();
-            IReadOnlyList<ValidationResult> validationResults = _productValidator.ValidateRange(models);
+            IReadOnlyCollection<ValidationResult> validationResults = _productValidator.ValidateRange(models);
             if(HasInvalidItems(validationResults))
             {
                 var validationData = validationResults.Select(r => _mapper.Map<ValidationResultDto>(r)).ToList();
@@ -53,7 +53,7 @@ namespace MyStore.Web.Controllers
             }
         }
 
-        private bool HasInvalidItems(IReadOnlyList<ValidationResult> validationResults)
+        private bool HasInvalidItems(IReadOnlyCollection<ValidationResult> validationResults)
             => validationResults.Any(result => !result.IsValid);
     }
 }

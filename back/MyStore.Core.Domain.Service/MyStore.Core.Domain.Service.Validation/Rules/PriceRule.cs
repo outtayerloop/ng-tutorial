@@ -2,7 +2,7 @@
 
 namespace MyStore.Core.Domain.Service.Validation.Rules
 {
-    public class PriceRule : INumberRule
+    public class PriceRule : IRule
     {
         /// <summary>
         /// Minimum valid price for a product.
@@ -14,13 +14,14 @@ namespace MyStore.Core.Domain.Service.Validation.Rules
         /// </summary>
         public static readonly decimal _maxPrice = 100_000M;
 
-        public RuleResult Validate(double? price)
+        public RuleResult Validate(ProductModel product)
+            => ValidatePrice(product.Price);
+
+        private RuleResult ValidatePrice(decimal price)
         {
-            if (!price.HasValue)
-                return new RuleResult(false, ValidationStatus.FailedPriceRule, "The provided price was null.");
-            else if ((decimal)price.Value < _minPrice)
+            if (price < _minPrice)
                 return new RuleResult(false, ValidationStatus.FailedPriceRule, $"The provided price value ({price}) cannot be under {_minPrice}.");
-            else if ((decimal)price.Value > _maxPrice)
+            else if (price > _maxPrice)
                 return new RuleResult(false, ValidationStatus.FailedPriceRule, $"The provided price value ({price}) cannot be above {_maxPrice}.");
             else
                 return new RuleResult(true, ValidationStatus.Ok, $"Ok. Provided price = {price}");

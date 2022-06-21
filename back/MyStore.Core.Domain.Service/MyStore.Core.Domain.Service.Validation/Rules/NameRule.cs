@@ -2,11 +2,14 @@
 
 namespace MyStore.Core.Domain.Service.Validation.Rules
 {
-    public class NameRule : ITextRule
+    public class NameRule : IRule
     {
         public static readonly int _maxNameLength = 64;
 
-        public RuleResult Validate(string? name)
+        public RuleResult Validate(ProductModel product)
+            => ValidateName(product.Name);
+
+        private RuleResult ValidateName(string name)
         {
             if (name == null)
                 return new RuleResult(false, ValidationStatus.FailedNameRule, $"The provided name ({name}) was null.");

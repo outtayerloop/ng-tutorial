@@ -23,7 +23,7 @@ namespace MyStore.Core.Domain.Service.Validation
         /// </summary>
         /// <param name="products">Provided products.</param>
         /// <returns></returns>
-        public IReadOnlyList<ValidationResult> ValidateRange(List<ProductModel> products)
+        public IReadOnlyCollection<ValidationResult> ValidateRange(List<ProductModel> products)
         {
             if (products == null)
                 return GetNullProductRangeResult();
@@ -40,10 +40,10 @@ namespace MyStore.Core.Domain.Service.Validation
             }
         }
 
-        private IReadOnlyList<ValidationResult> GetNullProductRangeResult()
+        private IReadOnlyCollection<ValidationResult> GetNullProductRangeResult()
         {
             var validationResults = new List<ValidationResult>();
-            ValidationResult productValidation = new ValidationResult();
+            var productValidation = new ValidationResult();
             productValidation.RuleResults.Add(new RuleResult(false, ValidationStatus.Null, "The provided product range was null."));
             validationResults.Add(productValidation);
             return validationResults.AsReadOnly();
@@ -62,9 +62,9 @@ namespace MyStore.Core.Domain.Service.Validation
         private List<RuleResult> GetRuleResults(ProductModel product)
         {
             var results = new List<RuleResult>();
-            results.Add(_nameRule.Validate(product.Name));
-            results.Add(_descriptionRule.Validate(product.Description));
-            results.Add(_priceRule.Validate((double?)product.Price));
+            results.Add(_nameRule.Validate(product));
+            results.Add(_descriptionRule.Validate(product));
+            results.Add(_priceRule.Validate(product));
             return results;
         }
     }

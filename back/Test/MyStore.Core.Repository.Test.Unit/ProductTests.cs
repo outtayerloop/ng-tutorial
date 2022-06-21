@@ -41,7 +41,7 @@ namespace MyStore.Core.Repository.Test.Unit
             await _context.AddRangeAsync(expectedProducts);
             await _context.SaveChangesAsync();
 
-            List<Product> actualProducts = _productRepository.GetAll().ToList();
+            List<Product> actualProducts = _productRepository.GetAll();
 
             Assert.True(expectedProducts.SequenceEqual(actualProducts));
         }
