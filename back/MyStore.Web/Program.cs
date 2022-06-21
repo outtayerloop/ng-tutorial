@@ -1,8 +1,12 @@
 using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
-using MyStore.Core.Application;
-using MyStore.Core.Data.Context;
+using MyStore.Core.Data.Context.Postgres;
+using MyStore.Core.Domain.Service.Store;
+using MyStore.Core.Domain.Service.Validation;
+using MyStore.Core.Domain.Service.Validation.Rules;
 using MyStore.Core.Repository;
+using MyStore.Core.Repository.Products;
+using MyStore.Core.Repository.Shippings;
 
 var builder = WebApplication.CreateBuilder(args);
 string corsPolicy = builder.Configuration["CorsSettings:CorsPolicy"];
@@ -13,7 +17,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: corsPolicy,
         corsBuilder =>
         {
-            corsBuilder.WithOrigins(builder.Configuration["CorsSettings:ClientHost"]);
+            corsBuilder.WithOrigins(builder.Configuration["CorsSettings:ClientHost"]).AllowAnyHeader();
         });
 });
 builder.Services.AddControllers();
@@ -21,18 +25,25 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IStoreRepository<>), typeof(StoreRepository<>));
-builder.Services.AddScoped<IStoreApplication, StoreApplication>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
+builder.Services.AddScoped<IShoppingService, ShoppingService>();
+builder.Services.AddScoped<NameRule>();
+builder.Services.AddScoped<DescriptionRule>();
+builder.Services.AddScoped<PriceRule>();
+builder.Services.AddScoped<DateRule>();
+builder.Services.AddScoped<IProductValidator, ProductValidator>();
 
 // Configure the database context
 string connectionString;
 if (builder.Environment.IsDevelopment())
-    connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING");
+    connectionString = Environment.GetEnvironmentVariable("MY_STORE_DB_CONNECTION_STRING")!;
 else
 {
     builder.Configuration.AddAzureKeyVault(
            new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
            new DefaultAzureCredential());
-    connectionString = builder.Configuration["MY-STORE-DB-CONNECTION-STRING"];
+    connectionString = builder.Configuration["MY-STORE-CONNECTION-STRING"];
 }
 builder.Services.AddDbContext<MyStoreDbContext>(options => options.UseNpgsql(connectionString));
 

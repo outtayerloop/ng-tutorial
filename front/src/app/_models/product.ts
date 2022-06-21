@@ -1,8 +1,20 @@
-export interface Product {
-  id: number;
+import { BaseModel } from "./base";
+
+export class Product extends BaseModel {
   name: string;
   price: number;
   description: string;
+  date: Date;
+  shipped: boolean;
+
+  constructor(jsonData: any){
+    super(jsonData);
+    this.name = jsonData.name;
+    this.price = jsonData.price;
+    this.description = jsonData.description;
+    this.date = jsonData.date;
+    this.shipped = jsonData.shipped || false;
+  }
 }
 
 /*
