@@ -5,8 +5,6 @@ using MyStore.Core.Domain.Service.Store;
 using MyStore.Core.Domain.Service.Validation;
 using MyStore.Core.Domain.Service.Validation.Rules;
 using MyStore.Core.Repository;
-using MyStore.Core.Repository.Products;
-using MyStore.Core.Repository.Shippings;
 
 var builder = WebApplication.CreateBuilder(args);
 string corsPolicy = builder.Configuration["CorsSettings:CorsPolicy"];

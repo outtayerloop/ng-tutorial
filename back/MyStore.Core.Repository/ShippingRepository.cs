@@ -1,7 +1,7 @@
 ﻿using MyStore.Core.Data.Context.Postgres;
 using MyStore.Core.Data.Entity.Relation;
 
-namespace MyStore.Core.Repository.Shippings
+namespace MyStore.Core.Repository
 {
     public class ShippingRepository : StoreRepository<Shipping>, IShippingRepository
     {

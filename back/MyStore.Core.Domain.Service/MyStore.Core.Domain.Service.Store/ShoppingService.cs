@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using MyStore.Core.Data.Entity.Relation;
 using MyStore.Core.Domain.Model.Entity;
-using MyStore.Core.Repository.Products;
-using MyStore.Core.Repository.Shippings;
+using MyStore.Core.Repository;
 
 namespace MyStore.Core.Domain.Service.Store
 {

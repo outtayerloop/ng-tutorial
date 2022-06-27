@@ -2,8 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyStore.Core.Data.Context.Postgres;
-using MyStore.Core.Repository.Products;
-using MyStore.Core.Repository.Shippings;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit.Microsoft.DependencyInjection;

@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyStore.Core.Data\MyStore.Core.Data.Context.Postgres\MyStore.Core.Data.Context.Postgres.csproj" />
     <ProjectReference Include="..\MyStore.Core.Data\MyStore.Core.Data.Entity\MyStore.Core.Data.Entity.Relation\MyStore.Core.Data.Entity.Relation.csproj" />
+    <ProjectReference Include="..\MyStore.Core.Domain.Service\MyStore.Core.Domain.Service.Store\MyStore.Core.Domain.Service.Store.csproj" />
   </ItemGroup>
 
 </Project>

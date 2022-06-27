@@ -1,6 +1,5 @@
 ﻿using MyStore.Core.Data.Entity.Common;
 using MyStore.Core.Data.Entity.Relation;
-using MyStore.Core.Repository.Shippings;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

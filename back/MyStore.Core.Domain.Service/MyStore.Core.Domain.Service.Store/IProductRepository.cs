@@ -1,6 +1,6 @@
 ﻿using MyStore.Core.Data.Entity.Relation;
 
-namespace MyStore.Core.Repository.Products
+namespace MyStore.Core.Repository
 {
     public interface IProductRepository : IStoreRepository<Product>
     {

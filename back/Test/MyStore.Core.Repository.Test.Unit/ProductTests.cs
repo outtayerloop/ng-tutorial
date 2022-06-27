@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using MyStore.Core.Data.Entity.Relation;
-using MyStore.Core.Repository.Products;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
