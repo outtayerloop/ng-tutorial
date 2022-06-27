@@ -2,7 +2,7 @@
 {
     public class Product : BaseRelation
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = default!;
 
         public decimal Price { get; set; }
 
@@ -23,5 +23,8 @@
                 && product.ShippingDate.CompareTo(ShippingDate) == 0
                 && product.Shipped == Shipped;
         }
+
+        public override int GetHashCode()
+            => base.GetHashCode();
     }
 }

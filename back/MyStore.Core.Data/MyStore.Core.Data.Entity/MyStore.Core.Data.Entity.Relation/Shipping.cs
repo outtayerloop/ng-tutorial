@@ -16,5 +16,8 @@ namespace MyStore.Core.Data.Entity.Relation
                 && shipping.Package == Package
                 && shipping.Price == Price;
         }
+
+        public override int GetHashCode()
+            => base.GetHashCode();
     }
 }

@@ -21,5 +21,8 @@ namespace MyStore.Core.Domain.Service.Extensions.Test.Unit
                 return false;
             return stub.StubProperty == StubProperty;
         }
+
+        public override int GetHashCode()
+            => base.GetHashCode();
     }
 }

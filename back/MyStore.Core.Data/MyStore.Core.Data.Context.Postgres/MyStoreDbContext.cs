@@ -7,9 +7,9 @@ namespace MyStore.Core.Data.Context.Postgres
     {
         public MyStoreDbContext(DbContextOptions<MyStoreDbContext> options) : base(options) { }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; } = default!;
 
-        public DbSet<Shipping> Shippings { get; set; }
+        public DbSet<Shipping> Shippings { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
