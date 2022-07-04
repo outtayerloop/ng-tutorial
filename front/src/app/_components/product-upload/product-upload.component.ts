@@ -27,7 +27,10 @@ export class ProductUploadComponent {
     const uploadedFile: File = files[0];
     const reader = new FileReader();
     reader.readAsBinaryString(uploadedFile);
-    reader.onload = _ => this.onLoadedProductsReader(reader);
+    reader.onload = _ => {
+      this.onLoadedProductsReader(reader);
+      input.value = ``;
+    }
   }
 
   private onLoadedProductsReader(reader: FileReader): void {
@@ -41,6 +44,7 @@ export class ProductUploadComponent {
   }
 
   private addProductRange(products: Product[]): void {
+    console.log(`addProductRange`);
     this.productService.addProductRange(products).subscribe({
       next: (res: Product[]) => {
         this.onNewlyAddedProducts(res);
