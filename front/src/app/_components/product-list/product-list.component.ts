@@ -39,8 +39,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   onValidationErrors(validationResults: ValidationResult[]): void {
-    console.log(validationResults);
-    this.validationErrors = validationResults.filter(v => !v.isValid());
+    this.validationErrors = validationResults.filter(v => !v.isValid);
   }
 }
 
