@@ -4,7 +4,7 @@ export class Product extends BaseModel {
   name: string;
   price: number;
   description: string;
-  date: Date;
+  shippingDate: Date;
   shipped: boolean;
 
   constructor(jsonData: any){
@@ -12,8 +12,8 @@ export class Product extends BaseModel {
     this.name = jsonData.name;
     this.price = jsonData.price;
     this.description = jsonData.description;
-    this.date = jsonData.date;
-    this.shipped = jsonData.shipped || false;
+    this.shippingDate = jsonData.shippingDate;
+    this.shipped = jsonData.shipped === `true`;
   }
 }
 

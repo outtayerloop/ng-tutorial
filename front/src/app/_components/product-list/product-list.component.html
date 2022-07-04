@@ -7,7 +7,7 @@
   ></app-product-upload>
 </div>
 <app-validation-errors 
-  [errors]="validationResults"
+  [errors]="validationErrors"
 ></app-validation-errors>
 
 <div *ngFor="let product of products">
@@ -20,7 +20,7 @@
     </a>
   </h3>
   <p *ngIf="product.description">Description : {{ product.description }}</p>
-  <p>Date : {{ product.date }}</p>
+  <p>Date : {{ product.shippingDate }}</p>
   <button type="button" (click)="share()">Share</button>
   <app-product-alerts [product]="product" (notifyCustomEvent)="onNotify()"></app-product-alerts>
 </div>

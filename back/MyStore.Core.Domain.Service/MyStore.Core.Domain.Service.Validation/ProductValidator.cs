@@ -5,25 +5,10 @@ namespace MyStore.Core.Domain.Service.Validation
 {
     public class ProductValidator : IProductValidator
     {
-        private readonly NameRule _nameRule;
+        private readonly IEnumerable<IRule> _rules;
 
-        private readonly DescriptionRule _descriptionRule;
-
-        private readonly PriceRule _priceRule;
-
-        private readonly DateRule _dateRule;
-
-        public ProductValidator(
-            NameRule nameRule, 
-            DescriptionRule descriptionRule, 
-            PriceRule priceRule,
-            DateRule dateRule)
-        {
-            _nameRule = nameRule;
-            _descriptionRule = descriptionRule;
-            _priceRule = priceRule;
-            _dateRule = dateRule;
-        }
+        public ProductValidator(IEnumerable<IRule> rules)
+            => _rules = rules;
 
         /// <summary>
         /// Determines whether the provided <paramref name="products"/> is valid.
@@ -69,10 +54,8 @@ namespace MyStore.Core.Domain.Service.Validation
         private List<RuleResult> GetRuleResults(ProductModel product)
         {
             var results = new List<RuleResult>();
-            results.Add(_nameRule.Validate(product));
-            results.Add(_descriptionRule.Validate(product));
-            results.Add(_priceRule.Validate(product));
-            results.Add(_dateRule.Validate(product));
+            foreach(IRule rule in _rules)
+                results.Add(rule.Validate(product));
             return results;
         }
     }

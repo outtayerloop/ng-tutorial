@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from 'src/app/_models/product';
 import { ValidationResult } from 'src/app/_models/validation-result';
 import { FileService } from 'src/app/_services/file.service';
@@ -11,9 +11,8 @@ import { ValidationService } from 'src/app/_services/validation/validation.servi
   templateUrl: './product-upload.component.html',
   styleUrls: ['./product-upload.component.css']
 })
-export class ProductUploadComponent implements OnInit, OnDestroy {
+export class ProductUploadComponent {
   @Output() readonly onCreatedProducts: EventEmitter<Product[]> = new EventEmitter<Product[]>();
-  private createdProductsSubscription!: Subscription;
   @Input() currentProducts !: Product[];
   @Output() readonly onValidationErrors: EventEmitter<ValidationResult[]> = new EventEmitter<ValidationResult[]>();
 
@@ -21,16 +20,6 @@ export class ProductUploadComponent implements OnInit, OnDestroy {
     private readonly fileService: FileService,
     private readonly productService: ProductService,
     private readonly validationService: ValidationService) { }
-
-  ngOnInit(): void {
-    this.createdProductsSubscription = this.productService.createdProducts.subscribe(
-      products => this.onNewlyAddedProducts(products)
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.createdProductsSubscription.unsubscribe();
-  }
 
   onUploadedProducts(event: Event): void {
     const input = <HTMLInputElement>event.target;
@@ -47,10 +36,18 @@ export class ProductUploadComponent implements OnInit, OnDestroy {
     const validationResults = this.validationService.validateProductRange(products);
     if(validationResults.some(r => !r.isValid()))
       this.onValidationErrors.emit(validationResults);
-    else{
-      this.productService.addProductRange(products);
-      this.onValidationErrors.emit([]);
-    }
+    else
+      this.addProductRange(products);
+  }
+
+  private addProductRange(products: Product[]): void {
+    this.productService.addProductRange(products).subscribe({
+      next: (res: Product[]) => {
+        this.onNewlyAddedProducts(res);
+        this.onValidationErrors.emit([]);
+      },
+      error: (err: HttpErrorResponse) => this.onValidationErrors.emit(<ValidationResult[]>(err.error))
+    });
   }
 
   private onNewlyAddedProducts(products: Product[]): void {

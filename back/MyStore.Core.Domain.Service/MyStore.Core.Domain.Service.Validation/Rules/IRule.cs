@@ -2,7 +2,7 @@
 
 namespace MyStore.Core.Domain.Service.Validation.Rules
 {
-    internal interface IRule
+    public interface IRule
     {
         RuleResult Validate(ProductModel product);
     }

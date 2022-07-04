@@ -26,11 +26,11 @@ builder.Services.AddScoped(typeof(IStoreRepository<>), typeof(StoreRepository<>)
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
 builder.Services.AddScoped<IShoppingService, ShoppingService>();
-builder.Services.AddScoped<NameRule>();
-builder.Services.AddScoped<DescriptionRule>();
-builder.Services.AddScoped<PriceRule>();
-builder.Services.AddScoped<DateRule>();
 builder.Services.AddScoped<IProductValidator, ProductValidator>();
+builder.Services.AddScoped<IRule, NameRule>();
+builder.Services.AddScoped<IRule, DescriptionRule>();
+builder.Services.AddScoped<IRule, PriceRule>();
+builder.Services.AddScoped<IRule, DateRule>();
 
 // Configure the database context
 string connectionString;
